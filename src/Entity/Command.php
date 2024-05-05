@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\CommandRepository;
 use Doctrine\ORM\Mapping as ORM;
 

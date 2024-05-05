@@ -6,7 +6,6 @@ use App\Repository\PosterRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PosterRepository::class)]
 #[ApiResource()]
