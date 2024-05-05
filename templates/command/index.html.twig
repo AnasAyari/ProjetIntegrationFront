@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command index{% endblock %}
+
+{% block body %}
+    <h1>Command index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for command in commands %}
+            <tr>
+                <td>{{ command.id }}</td>
+                <td>{{ command.location }}</td>
+                <td>
+                    <a href="{{ path('app_command_show', {'id': command.id}) }}">show</a>
+                    <a href="{{ path('app_command_edit', {'id': command.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_command_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poster index{% endblock %}
+
+{% block body %}
+    <h1>Poster index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantity</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Added_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for poster in posters %}
+            <tr>
+                <td>{{ poster.id }}</td>
+                <td>{{ poster.quantity }}</td>
+                <td>{{ poster.artist }}</td>
+                <td>{{ poster.album }}</td>
+                <td>{{ poster.addedAt ? poster.addedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ poster.updatedAt ? poster.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_poster_show', {'id': poster.id}) }}">show</a>
+                    <a href="{{ path('app_poster_edit', {'id': poster.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poster_new') }}">Create new</a>
+{% endblock %}

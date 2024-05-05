@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Command{% endblock %}
+
+{% block body %}
+    <h1>Create new Command</h1>
+
+    {{ include('command/_form.html.twig') }}
+
+    <a href="{{ path('app_command_index') }}">back to list</a>
+{% endblock %}

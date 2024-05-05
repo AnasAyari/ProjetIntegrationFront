@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Command{% endblock %}
+
+{% block body %}
+    <h1>Edit Command</h1>
+
+    {{ include('command/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_command_index') }}">back to list</a>
+
+    {{ include('command/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poster{% endblock %}
+
+{% block body %}
+    <h1>Poster</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ poster.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ poster.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Artist</th>
+                <td>{{ poster.artist }}</td>
+            </tr>
+            <tr>
+                <th>Album</th>
+                <td>{{ poster.album }}</td>
+            </tr>
+            <tr>
+                <th>Added_at</th>
+                <td>{{ poster.addedAt ? poster.addedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ poster.updatedAt ? poster.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_poster_index') }}">back to list</a>
+
+    <a href="{{ path('app_poster_edit', {'id': poster.id}) }}">edit</a>
+
+    {{ include('poster/_delete_form.html.twig') }}
+{% endblock %}
