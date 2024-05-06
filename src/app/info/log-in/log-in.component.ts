@@ -27,6 +27,7 @@ export class LogInComponent {
       password: ['', [Validators.required]],
       remember: [false]
     });
+    this.getAllUsers();
   }
 
 
@@ -45,11 +46,13 @@ export class LogInComponent {
       this.i++;
     }
     if (this.i == this.users.length){
-      alert("user not found")
+      console.log("user not found");
     }else if (password == this.users[this.i].password){
       if (!this.users[this.i].is_admin){
+        console.log("admin");
         this.router.navigate([`dashboard/${this.users[this.i].userId}`])
       }else{
+        console.log("user");
         this.router.navigate([`/${this.users[this.i].userId}`])
       }
     }

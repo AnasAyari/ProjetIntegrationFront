@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit(email.value,password.value)">
+<form [formGroup]="loginForm" >
     <h5 class="text-3xl text-center text-white font-arial">Log in to our platform</h5>
     <div>
       <label for="email" class="block mb-2 text-lg font-medium text-bgHigh font-arial tracking-widest">Your email</label>
@@ -17,7 +17,7 @@
       </div>
       <a href="#" class="ms-auto text-md text-yellow hover:underline">Lost Password?</a>
     </div>
-    <button type="submit" [disabled]="!loginForm.valid" class="font-arial w-full text-bg bg-yellow hover:scale-101 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login to your account</button>
+    <button type="submit"  class="font-arial w-full text-bg bg-yellow hover:scale-101 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"  (click)="onSubmit(email.value,password.value)">Login</button>
   </form>
   <div class="text-sm font-medium text-bgHigh mt-2">
     Not registered? <a href="#" class="text-yellow hover:underline">Create account</a>
