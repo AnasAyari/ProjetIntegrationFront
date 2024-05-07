@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,8 +39,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
-    #[ORM\Column]
-    private ?bool $is_admin = null;
+    #[ORM\OneToMany(targetEntity: Command::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $commands;
+
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
+    private Collection $sentMessages;
+
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user')]
+    private Collection $posts;
+
+    public function __construct()
+    {
+        $this->commands = new ArrayCollection();
+        $this->sentMessages = new ArrayCollection();
+        $this->posts = new ArrayCollection();
+    }
+    
+    
 
     public function getId(): ?int
     {
@@ -144,24 +161,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
-
-        return $this;
-    }
-    // public function __construct($id, $username, $email)
-    // {
-    //     $this->id = $id;
-    //     $this->username = $username;
-    //     $this->email = $email;
-    // }
-
-    public function isIsAdmin(): ?bool
-    {
-        return $this->is_admin;
-    }
-
-    public function setIsAdmin(bool $is_admin): static
-    {
-        $this->is_admin = $is_admin;
 
         return $this;
     }
