@@ -5,10 +5,7 @@ namespace App\Entity;
 use App\Repository\PosterRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-
 #[ORM\Entity(repositoryClass: PosterRepository::class)]
-#[ApiResource()]
 class Poster
 {
     #[ORM\Id]

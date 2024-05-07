@@ -11,24 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/Users', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository, HttpClientInterface $client): Response
+    public function index(UserRepository $userRepository, HttpClientInterface $client,SerializerInterface $serializer): Response
     {
-        $response = $client->request('GET', 'API_URL');
-        $users = $response->toArray();
-        return $this->render(
-            'Users/index.html.twig',
-            array('users' => $users,)
-            //[
-            // 'users' => $userRepository->findAll(),
-
-            //]
-        );
+        $data = $userRepository->findAll();
+        //$users = $response->toArray();
+        // $uD= new User($userData['id'],$userData['username'],UserData['email'],$userData['password'],);
+        // return $this->render(
+        //     'user/index.html.twig',
+        //     [
+        //     'users' => $userRepository->findAll(),
+        //     ]
+        // );
+        $response = $serializer->serialize($data, 'json');
+        return new JsonResponse($response, 200, [], true);
+        
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
@@ -51,7 +56,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/user/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -62,6 +67,17 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        $uD= new User($userData['id'],$userData['username'],UserData['email'],$userData['password'],);
+        return $this->render(
+            'Users/index.html.twig',
+            ['user' => $uD,]
+            // array('users' => $users,)
+            //[
+            // 'users' => $userRepository->findAll(),
+
+            //]
+        );
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 

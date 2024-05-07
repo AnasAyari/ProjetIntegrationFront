@@ -7,25 +7,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Core\Annotation\ApiResource;
 
-
-
-
-#[ApiResource()]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-   
-    private ?int $id = null;
 
+    private ?int $id = null;
+    
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
-
+    
     #[ORM\Column]
     private array $roles = [];
 
@@ -40,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $username = null;
+
+    #[ORM\Column]
+    private ?bool $is_admin = null;
 
     public function getId(): ?int
     {
@@ -145,6 +144,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
+
+        return $this;
+    }
+    // public function __construct($id, $username, $email)
+    // {
+    //     $this->id = $id;
+    //     $this->username = $username;
+    //     $this->email = $email;
+    // }
+
+    public function isIsAdmin(): ?bool
+    {
+        return $this->is_admin;
+    }
+
+    public function setIsAdmin(bool $is_admin): static
+    {
+        $this->is_admin = $is_admin;
 
         return $this;
     }
