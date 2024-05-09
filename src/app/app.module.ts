@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+<<<<<<< HEAD
+=======
+import { HttpClientModule } from '@angular/common/http';
+
+>>>>>>> 91ce75b256019081ec9491ad8587b55abf33406a
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './static/header/header.component';

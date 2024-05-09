@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 r
 <div class="flex items-center justify-center h-screen">
     <div class="w-1/3 p-4 rounded-lg shadow sm:p-6 md:p-8 bg-bg shadow-xl">
@@ -24,6 +25,30 @@ r
         </form>
         <div class="text-sm font-medium text-bgHigh mt-2">
             Not registered? <a (click)="NavigateTo()" class="text-yellow hover:underline">Create account</a>
+=======
+<form [formGroup]="loginForm" >
+    <h5 class="text-3xl text-center text-white font-arial">Log in to our platform</h5>
+    <div>
+      <label for="email" class="block mb-2 text-lg font-medium text-bgHigh font-arial tracking-widest">Your email</label>
+      <input type="email" formControlName="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="name@company.com" required #email/>
+    </div>
+    <div>
+      <label for="password" class="block mb-2 text-lg font-medium text-bgHigh font-arial tracking-widest">Your password</label>
+      <input type="password" formControlName="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required #password/>
+    </div>
+    <div class="flex items-start">
+      <div class="flex items-start">
+        <div class="flex items-center h-5">
+          <input id="remember" formControlName="remember" type="checkbox" class="w-4 h-4 border border-bg rounded bg-gray-50 focus:ring-3 focus:ring-bg " required />
+>>>>>>> 91ce75b256019081ec9491ad8587b55abf33406a
         </div>
     </div>
+<<<<<<< HEAD
 </div>
+=======
+    <button type="submit"  class="font-arial w-full text-bg bg-yellow hover:scale-101 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"  (click)="onSubmit(email.value,password.value)">Login</button>
+  </form>
+  <div class="text-sm font-medium text-bgHigh mt-2">
+    Not registered? <a href="#" class="text-yellow hover:underline">Create account</a>
+  </div>
+>>>>>>> 91ce75b256019081ec9491ad8587b55abf33406a
