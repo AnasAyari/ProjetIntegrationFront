@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\CommandRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
+
 
 #[ORM\Entity(repositoryClass: CommandRepository::class)]
 class Command
@@ -11,18 +16,20 @@ class Command
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['command'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['command'])]
     private ?string $location = null;
 
     #[ORM\ManyToOne(inversedBy: 'commands')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    #[Groups(['command'])]
+    private ?User $user ;
 
-    #[ORM\ManyToOne(inversedBy: 'commands')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Poster $poster = null;
+    #[ORM\ManyToMany(targetEntity: Poster::class)]
+    #[Groups(['command'])]
+    private Collection $posters;
 
     public function getId(): ?int
     {
@@ -41,10 +48,11 @@ class Command
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+    
+    public function getUser(): User
+{
+    return $this->user;
+}
 
     public function setUser(?User $user): static
     {
@@ -52,16 +60,31 @@ class Command
 
         return $this;
     }
+    public function __construct()
+{
+    $this->posters = new ArrayCollection();
+}
 
-    public function getPoster(): ?Poster
-    {
-        return $this->poster;
+public function getPosters(): Collection
+{
+    return $this->posters;
+}
+
+public function addPoster(Poster $poster): self
+{
+    if (!$this->posters->contains($poster)) {
+        $this->posters[] = $poster;
     }
 
-    public function setPoster(?Poster $poster): static
-    {
-        $this->poster = $poster;
+    return $this;
+}
 
-        return $this;
-    }
+public function removePoster(Poster $poster): self
+{
+    $this->posters->removeElement($poster);
+
+    return $this;
+}
+     
+ 
 }

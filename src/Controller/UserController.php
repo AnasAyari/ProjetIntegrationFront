@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/Users', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/Users', name: 'app_user_indSex', methods: ['GET'])]
     public function index(UserRepository $userRepository, SerializerInterface $serializer): Response
     {
         try {
@@ -27,6 +28,7 @@ class UserController extends AbstractController
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 
     #[Route('/new', name: 'app_user_new', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -60,6 +62,23 @@ public function show($id, UserRepository $userRepository, SerializerInterface $s
         return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
+
+    #[Route('/email/{email}', name: 'app_user_get_by_email', methods: ['GET'])]
+    public function getUserByEmail(string $email, UserRepository $userRepository, SerializerInterface $serializer): Response
+    {
+        try {
+            $user = $userRepository->findByEmail($email);
+
+            if ($user === null) {
+                return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+            }
+
+            $response = $serializer->serialize($user, 'json', ['groups' => 'command']);
+            return new JsonResponse($response, Response::HTTP_OK, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 
 #[Route('/{id}/edit', name: 'app_user_edit', methods: ['PUT'])]
 public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response

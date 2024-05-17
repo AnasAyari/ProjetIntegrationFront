@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\PosterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,18 +11,22 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PosterRepository::class)]
 class Poster
 {
-    #[ORM\Id]
+#[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['command'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['command'])]
     private ?int $quantity = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['command'])]
     private ?string $artist = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['command'])]
     private ?string $album = null;
 
     #[ORM\Column]
@@ -30,14 +35,10 @@ class Poster
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
-    #[ORM\OneToMany(targetEntity: Command::class, mappedBy: 'poster', orphanRemoval: true)]
-    private Collection $commands;
+    
 
-    public function __construct()
-    {
-        $this->commands = new ArrayCollection();
-    }
-
+    
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -55,9 +56,10 @@ class Poster
         return $this;
     }
 
+    
     public function getArtist(): ?string
     {
-        return $this->artist;
+    return $this->artist;
     }
 
     public function setArtist(string $artist): static
@@ -67,6 +69,7 @@ class Poster
         return $this;
     }
 
+   
     public function getAlbum(): ?string
     {
         return $this->album;
@@ -103,33 +106,5 @@ class Poster
         return $this;
     }
 
-    /**
-     * @return Collection<int, Command>
-     */
-    public function getCommands(): Collection
-    {
-        return $this->commands;
-    }
-
-    public function addCommand(Command $command): static
-    {
-        if (!$this->commands->contains($command)) {
-            $this->commands->add($command);
-            $command->setPoster($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommand(Command $command): static
-    {
-        if ($this->commands->removeElement($command)) {
-            // set the owning side to null (unless already changed)
-            if ($command->getPoster() === $this) {
-                $command->setPoster(null);
-            }
-        }
-
-        return $this;
-    }
+  
 }

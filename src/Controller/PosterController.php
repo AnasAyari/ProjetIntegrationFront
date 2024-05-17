@@ -11,76 +11,87 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/poster')]
 class PosterController extends AbstractController
 {
     #[Route('/posters', name: 'app_poster_index', methods: ['GET'])]
-    public function index(PosterRepository $posterRepository , HttpClientInterface $client): Response
+    public function index(PosterRepository $posterRepository, SerializerInterface $serializer): Response
     {
-        $response = $client->request('GET', 'API_URL');
-        $posters = $response->toArray();
-        return $this->render('poster/index.html.twig',
-        array('posters'=>$posters) 
-        /*[
-            'posters' => $posterRepository->findAll(),
-        ]*/);
+        try {
+            $data = $posterRepository->findAll();
+            $response = $serializer->serialize($data, 'json');
+            return new JsonResponse($response, 200, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    #[Route('/new', name: 'app_poster_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_poster_new', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $poster = new Poster();
-        $form = $this->createForm(PosterType::class, $poster);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        try {
+            $poster = new Poster();
+            $data = json_decode($request->getContent(), true);
+            $poster->setArtist($data['artist']);
+            $poster->setAlbum($data['album']);
+            $poster->setQuantity($data['quantity']);
+            $poster->setAddedAt(new \DateTimeImmutable());
+            $poster->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->persist($poster);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_poster_index', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse(['status' => 'Poster created'], Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->renderForm('poster/new.html.twig', [
-            'poster' => $poster,
-            'form' => $form,
-        ]);
     }
 
     #[Route('/{id}', name: 'app_poster_show', methods: ['GET'])]
-    public function show(Poster $poster): Response
+    public function show($id, PosterRepository $posterRepository, SerializerInterface $serializer): Response
     {
-        return $this->render('poster/show.html.twig', [
-            'poster' => $poster,
-        ]);
+        try {
+            $poster = $posterRepository->find($id);
+            if ($poster === null) {
+                throw new \Exception('Poster not found');
+            }
+            $response = $serializer->serialize($poster, 'json');
+            return new JsonResponse($response, 200, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    #[Route('/{id}/edit', name: 'app_poster_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_poster_edit', methods: ['PUT'])]
     public function edit(Request $request, Poster $poster, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PosterType::class, $poster);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $poster->setArtist($data['artist']);
+            $poster->setAlbum($data['album']);
+            $poster->setQuantity($data['quantity']);
+            $poster->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_poster_index', [], Response::HTTP_SEE_OTHER);
+            return new JsonResponse(['status' => 'Poster updated'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->renderForm('poster/edit.html.twig', [
-            'poster' => $poster,
-            'form' => $form,
-        ]);
     }
 
-    #[Route('/{id}', name: 'app_poster_delete', methods: ['POST'])]
-    public function delete(Request $request, Poster $poster, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_poster_delete', methods: ['DELETE'])]
+    public function delete($id, PosterRepository $posterRepository, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$poster->getId(), $request->request->get('_token'))) {
+        try {
+            $poster = $posterRepository->find($id);
+            if ($poster === null) {
+                throw new \Exception('Poster not found');
+            }
             $entityManager->remove($poster);
             $entityManager->flush();
+            return new JsonResponse(['status' => 'Poster deleted'], Response::HTTP_NO_CONTENT);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->redirectToRoute('app_poster_index', [], Response::HTTP_SEE_OTHER);
     }
 }

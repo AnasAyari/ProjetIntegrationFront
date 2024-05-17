@@ -5,73 +5,84 @@ namespace App\Controller;
 use App\Entity\Command;
 use App\Form\CommandType;
 use App\Repository\CommandRepository;
+use App\Repository\UserRepository;
+use App\Repository\PosterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/command')]
 class CommandController extends AbstractController
 {
-    #[Route('/Commands', name: 'app_command_index', methods: ['GET'])]
-    public function index(CommandRepository $commandRepository, HttpClientInterface $client): Response
+    #[Route('/commands', name: 'app_command_index', methods: ['GET'])]
+   public function index(CommandRepository $commandRepository, SerializerInterface $serializer): Response
     {
-        $response = $client->request('GET', 'API_URL');
-        $commands = $response->toArray();
-        return $this->render('command/index.html.twig', 
-        array('commands'=> $command)
-        /*[
-            'commands' => $commandRepository->findAll(),
-        ]*/);
-    }
-
-    #[Route('/new', name: 'app_command_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $command = new Command();
-        $form = $this->createForm(CommandType::class, $command);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($command);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_command_index', [], Response::HTTP_SEE_OTHER);
+        try {
+            $data = $commandRepository->findAll();
+            $response = $serializer->serialize($data, 'json', ['groups' => 'command']);
+            return new JsonResponse($response, 200, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->renderForm('command/new.html.twig', [
-            'command' => $command,
-            'form' => $form,
-        ]);
     }
+
+   #[Route('/new', name: 'app_command_new', methods: ['POST'])]
+public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, PosterRepository $posterRepository): Response
+{
+    try {
+        $command = new Command();
+        $data = json_decode($request->getContent(), true);
+        $command->setLocation($data['location']);
+        // Get the user and poster by their ids
+        $user = $userRepository->find($data['userId']);
+        $poster = $posterRepository->find($data['posterId']);
+        $command->setUser($user);
+        $command->addPoster($poster); // Use addPoster instead of setPoster
+        $entityManager->persist($command);
+        $entityManager->flush();
+        return new JsonResponse(['status' => 'Command created'], Response::HTTP_CREATED);
+    } catch (\Exception $e) {
+        return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
 
     #[Route('/{id}', name: 'app_command_show', methods: ['GET'])]
-    public function show(Command $command): Response
+    public function show($id, CommandRepository $commandRepository, SerializerInterface $serializer): Response
     {
-        return $this->render('command/show.html.twig', [
-            'command' => $command,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_command_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Command $command, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CommandType::class, $command);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_command_index', [], Response::HTTP_SEE_OTHER);
+        try {
+            $command = $commandRepository->find($id);
+            if ($command === null) {
+                throw new \Exception('Command not found');
+            }
+            $response = $serializer->serialize($command, 'json');
+            return new JsonResponse($response, 200, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return $this->renderForm('command/edit.html.twig', [
-            'command' => $command,
-            'form' => $form,
-        ]);
     }
+
+    #[Route('/{id}/edit', name: 'app_command_edit', methods: ['PUT'])]
+public function edit(Request $request, Command $command, EntityManagerInterface $entityManager, UserRepository $userRepository, PosterRepository $posterRepository): Response
+{
+    try {
+        $data = json_decode($request->getContent(), true);
+        $command->setLocation($data['location']);
+        // Get the user and poster by their ids
+        $user = $userRepository->find($data['userId']);
+        $poster = $posterRepository->find($data['posterId']);
+        $command->setUser($user);
+        $command->addPoster($poster); // Use addPoster instead of setPoster
+        $entityManager->flush();
+        return new JsonResponse(['status' => 'Command updated'], Response::HTTP_OK);
+    } catch (\Exception $e) {
+        return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+}
 
     #[Route('/{id}', name: 'app_command_delete', methods: ['POST'])]
     public function delete(Request $request, Command $command, EntityManagerInterface $entityManager): Response

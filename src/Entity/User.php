@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,10 +18,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-
+    #[Groups(['command'])]
     private ?int $id = null;
     
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['command'])]
     private ?string $email = null;
     
     #[ORM\Column]
@@ -37,10 +38,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $numero = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['command'])]
     private ?string $username = null;
+    
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Command::class)]
+    private $commands;
 
-    #[ORM\OneToMany(targetEntity: Command::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $commands;
+    
 
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
     private Collection $sentMessages;
@@ -56,11 +60,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     
     
-
+    
     public function getId(): ?int
-    {
-        return $this->id;
-    }
+{
+    return $this->id;
+}
 
     public function getEmail(): ?string
     {
@@ -87,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
+    
     public function getUsername(): string
     {
         return (string) $this->username;
