@@ -16,6 +16,7 @@ export class LogInComponent {
 
   loginForm!: FormGroup;
   users: User[] = [];
+  user: any;
 
   constructor(
     private router: Router,
@@ -29,6 +30,15 @@ export class LogInComponent {
       password: ['', [Validators.required]],
       remember: [false],
     });
+    this.userService.getUserByEmail('aaa@gmail.com').subscribe(
+      (data) => {
+        this.user = data;
+        
+      },
+      (error) => {
+        console.error('Error fetching user', error);
+      }
+    );
     this.getAllUsers();
   }
 
@@ -39,8 +49,20 @@ export class LogInComponent {
     });
   }
 
-  onSubmit(){
-    console.log("test");
-    
+  onSubmit() {
+    const { email, password } = this.loginForm.value;
+    this.userService.getUserByEmail(email).subscribe(
+      (user) => {
+        
+        if (user && user.password === password) {
+          this.router.navigate(['/landing']);
+        } else {
+          console.log('Invalid credentials');
+        }
+      },
+      (error) => {
+        console.log('User not found');
+      }
+    );
   }
 }

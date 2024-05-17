@@ -24,6 +24,7 @@ export class SignUpComponent implements OnInit {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+      numero: [0, [Validators.required]],
     });
   }
 
@@ -32,18 +33,24 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.signupForm.value.email);
+    
     if (this.signupForm.valid) {
       this.userService
         .getUserByEmail(this.signupForm.value.email)
         .subscribe((user) => {
+          console.log(user);
+          
           if (user) {
             alert('email address already exists please use another one');
           } else {
             this.newUser = this.signupForm.value;
+            console.log(this.newUser);
+            
             this.newUser.is_admin = false;
             this.userService.createUser(this.newUser).subscribe((data) => {
               console.log(data);
-              this.router.navigate(['form/login']);
+              this.router.navigate(['/landing']);
             });
           }
         });
