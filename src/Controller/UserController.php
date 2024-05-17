@@ -63,17 +63,23 @@ public function show($id, UserRepository $userRepository, SerializerInterface $s
     }
 }
 
-    #[Route('/email/{email}', name: 'app_user_get_by_email', methods: ['GET'])]
-    public function getUserByEmail(string $email, UserRepository $userRepository, SerializerInterface $serializer): Response
+    #[Route('', name: 'app_user_get_by_email', methods: ['GET'])]
+    public function getUserByEmail(Request $request, UserRepository $userRepository, SerializerInterface $serializer): Response
     {
         try {
+            $email = $request->query->get('email');
+            
+            if (!$email) {
+                return new JsonResponse(['message' => 'Email parameter is missing'], Response::HTTP_BAD_REQUEST);
+            }
+
             $user = $userRepository->findByEmail($email);
 
             if ($user === null) {
                 return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
             }
 
-            $response = $serializer->serialize($user, 'json', ['groups' => 'command']);
+            $response = $serializer->serialize($user, 'json');
             return new JsonResponse($response, Response::HTTP_OK, [], true);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);

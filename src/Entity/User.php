@@ -62,9 +62,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     
     public function getId(): ?int
-{
-    return $this->id;
-}
+    {
+        return $this->id;
+    }
 
     public function getEmail(): ?string
     {

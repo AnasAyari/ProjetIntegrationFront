@@ -16,10 +16,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 
-#[Route('/command')]
+#[Route('/commands')]
 class CommandController extends AbstractController
 {
-    #[Route('/commands', name: 'app_command_index', methods: ['GET'])]
+    #[Route('/', name: 'app_command_index', methods: ['GET'])]
    public function index(CommandRepository $commandRepository, SerializerInterface $serializer): Response
     {
         try {
@@ -31,7 +31,7 @@ class CommandController extends AbstractController
         }
     }
 
-   #[Route('/new', name: 'app_command_new', methods: ['POST'])]
+   #[Route('', name: 'app_command_new', methods: ['POST'])]
 public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, PosterRepository $posterRepository): Response
 {
     try {
@@ -39,10 +39,13 @@ public function new(Request $request, EntityManagerInterface $entityManager, Use
         $data = json_decode($request->getContent(), true);
         $command->setLocation($data['location']);
         // Get the user and poster by their ids
-        $user = $userRepository->find($data['userId']);
-        $poster = $posterRepository->find($data['posterId']);
+        $user = $userRepository->find($data['user']['id']);
+        foreach ($data['posters'] as $posterId) {
+            $poster = $posterRepository->find($posterId);
+            $command->addPoster($poster);
+        }
         $command->setUser($user);
-        $command->addPoster($poster); // Use addPoster instead of setPoster
+         // Use addPoster instead of setPoster
         $entityManager->persist($command);
         $entityManager->flush();
         return new JsonResponse(['status' => 'Command created'], Response::HTTP_CREATED);
