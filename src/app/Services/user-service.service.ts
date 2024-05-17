@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UserServiceService {
 
-  private baseURL="http://127.0.0.1:8000/api/users"
+  private baseURL="http://localhost:8000/users"
 
   constructor(private httpClient:HttpClient) { }
 
@@ -19,13 +19,17 @@ export class UserServiceService {
   getUserById(userID:number):Observable<User>{
     return this.httpClient.get<User>(`${this.baseURL}/${userID}`);
   }
+  
+  getUserByEmail(email: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.baseURL}/email/${email}`);
+  }
 
   createUser(user:User):Observable<User>{
-    return this.httpClient.post<User>(`${this.baseURL}`,user);
+    return this.httpClient.post<User>(`${this.baseURL}/new`,user);
   }
 
   updateUser(userID:number,user:User):Observable<User>{
-    return this.httpClient.put<User>(`${this.baseURL}/${userID}`,user);
+    return this.httpClient.put<User>(`${this.baseURL}/${userID}/edit`,user);
   }
 
   deleteUserById(userID:number):Observable<User>{

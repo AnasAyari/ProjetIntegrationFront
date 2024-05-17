@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-<<<<<<< HEAD
-=======
-import { HttpClientModule } from '@angular/common/http';
 
->>>>>>> 91ce75b256019081ec9491ad8587b55abf33406a
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './static/header/header.component';
@@ -18,7 +15,7 @@ import { FormComponent } from './info/form/form.component';
 import { LogInComponent } from './info/log-in/log-in.component';
 import { SignUpComponent } from './info/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
