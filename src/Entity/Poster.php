@@ -35,7 +35,8 @@ class Poster
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
 
-    
+     #[ORM\Column(length: 255)]
+    private ?string $posterFile = null;
 
     
    
@@ -106,5 +107,21 @@ class Poster
         return $this;
     }
 
-  
+     public function getPosterFile(): ?string
+    {
+        return $this->posterFile;
+    }
+
+    public function setPosterFile(string $posterFile): static
+    {
+        $this->posterFile = $posterFile;
+
+        return $this;
+    }
+    
+public function __toString(): string
+{
+    return ($this->posterFile ?? 'no file') . ', ' . ($this->album ?? 'no album') . ', ' . ($this->artist ?? 'no artist');
+}
+
 }
