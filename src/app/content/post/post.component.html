@@ -1,0 +1,36 @@
+<div class="flex flex-col rounded-lg border-2 shadow-xl w-full items-center bg-white">
+    <div class="flex items-center px-6 pt-4 self-start ">
+        <img src="" alt="" class="bg-bg h-12 w-12 rounded-full mr-4">
+        <h1 class="text-xl font-bold">Foulen Fouleni</h1>
+    </div>
+    <div class="border border-black rounded-md w-11/12 flex justify-center p-2 my-4">
+        <img src="" alt="" class="bg-red-900 w-full h-96 rounded-md">
+    </div>
+    <div class="w-full bg-yellow text-black rounded-lg">
+        <div class="flex justify-between px-8 py-4 items-center w-full">
+            <div>
+                <i  [ngClass]="toggleLike()?'fa-regular fa-heart fa-2xl' : 'fa-solid fa-heart fa-2xl' " (click)="toggleLike()" class=" mr-4" style="color: #000000;"></i>
+                <i class="fa-regular fa-comment fa-2xl" style="color: #000000;"></i>
+            </div>
+            <i [ngClass]="toggleSave()?'fa-regular fa-bookmark fa-2xl':'fa-solid fa-bookmark fa-2xl'" (click)="toggleSave()" style="color: #000000;"></i>
+        </div>
+        <div class="border-t border-black flex flex-col p-4">
+            <div class="flex text-xl my-2">
+                <h1 class="font-bold mr-4">Ghzela</h1>
+                <p>aman najem nal3eb m3akom</p>
+            </div>
+            <div class="flex text-xl my-2">
+                <h1 class="font-bold mr-4">Ghzela</h1>
+                <p>aman najem nal3eb m3akom</p>
+            </div>
+        </div>
+        <div class="w-full border-t border-black">
+        </div>
+        <div class="flex justify-center">
+            <div class="flex justify-between items-center w-11/12">
+                <input type="text" class="border-b-2 border-black text-bg bg-transparent w-11/12 text-xl my-4 placeholder:text-black" placeholder="Write a comment.">
+                <i class="fa-solid fa-paper-plane fa-2xl" style="color: #000000;"></i>
+            </div>
+        </div>
+    </div>
+</div>
