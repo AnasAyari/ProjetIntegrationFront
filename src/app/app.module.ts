@@ -19,6 +19,7 @@ import { PostListComponent } from './content/post-list/post-list.component';
 import { ProductsComponent } from './products/products/products.component';
 import { FilterComponent } from './products/filter/filter.component';
 import { PostersComponent } from './products/posters/posters.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PostersComponent } from './products/posters/posters.component';
     PostListComponent,
     ProductsComponent,
     FilterComponent,
-    PostersComponent
+    PostersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

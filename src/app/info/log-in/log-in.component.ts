@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Classes/user';
+import { AuthService } from 'src/app/Services/auth.service';
 import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class LogInComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private authService:AuthService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,6 @@ export class LogInComponent {
     this.userService.getUserByEmail('aaa@gmail.com').subscribe(
       (data) => {
         this.user = data;
-        
       },
       (error) => {
         console.error('Error fetching user', error);
@@ -49,20 +50,13 @@ export class LogInComponent {
     });
   }
 
-  onSubmit() {
-    const { email, password } = this.loginForm.value;
-    this.userService.getUserByEmail(email).subscribe(
-      (user) => {
-        
-        if (user && user.password === password) {
-          this.router.navigate(['/landing']);
-        } else {
-          console.log('Invalid credentials');
-        }
-      },
-      (error) => {
-        console.log('User not found');
-      }
-    );
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      const email = this.loginForm.value.email;
+      const password = this.loginForm.value.password;
+
+      this.authService.login(email, password);
+      
+    }
   }
 }
