@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+<<<<<<< HEAD
+=======
+import { HttpClientModule } from '@angular/common/http';
+
+>>>>>>> 91ce75b256019081ec9491ad8587b55abf33406a
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './static/header/header.component';
@@ -14,11 +19,6 @@ import { LogInComponent } from './info/log-in/log-in.component';
 import { SignUpComponent } from './info/sign-up/sign-up.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { PostComponent } from './content/post/post.component';
-import { PostListComponent } from './content/post-list/post-list.component';
-import { ProductsComponent } from './products/products/products.component';
-import { FilterComponent } from './products/filter/filter.component';
-import { PostersComponent } from './products/posters/posters.component';
 
 @NgModule({
   declarations: [
