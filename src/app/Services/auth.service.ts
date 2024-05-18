@@ -6,48 +6,54 @@ import { UserServiceService } from './user-service.service';
   providedIn: 'root',
 })
 export class AuthService {
-  
   private readonly USER_ID_KEY = 'user_id';
   private authenticated = false;
   isAnAdmin = 'admin';
-  constructor(private router: Router, private userService: UserServiceService) {}
+  constructor(
+    private router: Router,
+    private userService: UserServiceService
+  ) {}
 
-  login(email: string, password: string): void {
-    this.userService
-      .getUserByEmail(email)
-      .subscribe((authenticatedUser) => {
-        if (authenticatedUser && authenticatedUser.password === password) {
+  login(email: string, password: string, remember: boolean): void {
+    this.userService.getUserByEmail(email).subscribe((authenticatedUser) => {
+      if (authenticatedUser && authenticatedUser.password === password) {
+        if (remember) {
           localStorage.setItem(
             this.USER_ID_KEY,
             authenticatedUser.id.toString()
           );
-          console.log(localStorage.getItem(this.USER_ID_KEY));
-          
-          if (authenticatedUser.is_admin) {
-            localStorage.setItem(this.isAnAdmin, 'true');
-            this.router.navigate(['/dashboard']);
-          } else {
-            localStorage.setItem(this.isAnAdmin, 'false');
-            this.router.navigate(['/home']);
-          }
         } else {
-          alert('User not found or incorrect password');
+          sessionStorage.setItem(
+            this.USER_ID_KEY,
+            authenticatedUser.id.toString()
+          );
         }
-      });
+
+        if (authenticatedUser.is_admin) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+      } else {
+        alert('User not found or incorrect password');
+      }
+    });
   }
 
   logout(): void {
     localStorage.removeItem(this.USER_ID_KEY);
+    sessionStorage.removeItem(this.USER_ID_KEY);
     localStorage.removeItem(this.isAnAdmin);
-    console.log(localStorage.removeItem(this.USER_ID_KEY));
-    
-    alert("You have been logged out")
+    alert('You have been logged outT');
     this.router.navigate(['/home']);
     window.location.reload();
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.USER_ID_KEY);
+    return (
+      !!localStorage.getItem(this.USER_ID_KEY) ||
+      !!sessionStorage.getItem(this.USER_ID_KEY)
+    );
   }
 
   setAuthenticated(value: boolean): void {

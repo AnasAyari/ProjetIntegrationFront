@@ -28,11 +28,11 @@
                 
             </div>
             <div>
-                <label for="numero" class="block mb-2 text-lg font-medium text-bgHigh font-arial tracking-widest">Your password</label>
+                <label for="numero" class="block mb-2 text-lg font-medium text-bgHigh font-arial tracking-widest">Phone Number</label>
                 <input type="pnumero" formControlName="numero" id="numero" placeholder="0000000" class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 <div class="text-danger fw-bold" *ngIf="signupForm.controls['numero'].invalid && (signupForm.controls['numero'].dirty || signupForm.controls['numero'].touched)">
                     <div *ngIf="signupForm.controls['numero'].errors?.['required']" class="alert alert-danger p-2">numero is required</div>
-                    <div *ngIf="signupForm.controls['numero'].errors?.['minlength']" class="alert alert-warning p-2">Minimum length is 3</div>
+                    <div *ngIf="signupForm.controls['numero'].errors?.['minlength']" class="alert alert-warning p-2">Minimum length is 8</div>
                 </div>
             </div>
             <button type="submit" class="font-arial w-full text-bg bg-yellow hover:scale-101 duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>

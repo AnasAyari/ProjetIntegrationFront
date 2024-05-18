@@ -30,7 +30,7 @@ export class LogInComponent {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      remember: [false],
+      remember: [true],
     });
     this.userService.getUserByEmail('aaa@gmail.com').subscribe(
       (data) => {
@@ -41,6 +41,8 @@ export class LogInComponent {
       }
     );
     this.getAllUsers();
+    console.log(this.loginForm.value.remember);
+     
   }
 
   getAllUsers() {
@@ -54,8 +56,11 @@ export class LogInComponent {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
+      const remember = this.loginForm.value.remember;
+      console.log(remember);
+      
 
-      this.authService.login(email, password);
+      this.authService.login(email, password,remember);
       
     }
   }

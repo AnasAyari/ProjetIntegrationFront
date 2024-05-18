@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      numero: [0, [Validators.required]],
+      numero: [, [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
             this.newUser.is_admin = false;
             this.userService.createUser(this.newUser).subscribe((data) => {
               console.log(data);
-              this.router.navigate(['/landing']);
+              this.router.navigate(['/form/login']);
             });
           }
         });
