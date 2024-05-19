@@ -26,7 +26,7 @@ class Post
     private ?int $likes = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $posted_at = null;
+    private ?\DateTimeImmutable $added_at = null;
 
     public function getId(): ?int
     {
@@ -81,14 +81,14 @@ class Post
         return $this;
     }
 
-    public function getPostedAt(): ?\DateTimeImmutable
+    public function getAddedAt(): ?\DateTimeImmutable
     {
-        return $this->posted_at;
+        return $this->added_at;
     }
 
-    public function setPostedAt(\DateTimeImmutable $posted_at): static
+    public function setAddedAt(\DateTimeImmutable $added_at): static
     {
-        $this->posted_at = $posted_at;
+        $this->added_att = $added_at;
 
         return $this;
     }
