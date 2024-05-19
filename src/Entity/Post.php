@@ -88,7 +88,7 @@ class Post
 
     public function setAddedAt(\DateTimeImmutable $added_at): static
     {
-        $this->added_att = $added_at;
+        $this->added_at = $added_at;
 
         return $this;
     }
