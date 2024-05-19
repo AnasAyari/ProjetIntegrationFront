@@ -20,6 +20,8 @@ import { ProductsComponent } from './products/products/products.component';
 import { FilterComponent } from './products/filter/filter.component';
 import { PostersComponent } from './products/posters/posters.component';
 import { ContactComponent } from './contact/contact.component';
+import { HomeComponent } from './home/home.component';
+import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,7 @@ import { ContactComponent } from './contact/contact.component';
     PostListComponent,
     ProductsComponent,
     FilterComponent,
-    PostersComponent,
-    ContactComponent
+    PostersComponent
   ],
   imports: [
     BrowserModule,

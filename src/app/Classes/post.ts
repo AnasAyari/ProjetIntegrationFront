@@ -1,6 +1,8 @@
 export class Post {
-  public postId!: number
+  public id!: number
   public description!: string
-  public imageUrl!: string
-  public clientId!: number
+  public imageURL!: string
+  public userId!: number
+  public likes!: number
+  public addedAt!:Date
 }

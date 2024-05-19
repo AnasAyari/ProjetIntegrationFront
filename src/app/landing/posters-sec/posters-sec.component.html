@@ -4,9 +4,7 @@
         <p class="font-arial text-bgHigh">Our posters are meticulously crafted to be 100% original, each design infused with creativity and uniqueness. We ensure that every poster we produce is a bespoke creation, tailored to your specific needs and vision. From concept to execution, our team of skilled designers pours their passion and expertise into every detail, guaranteeing that your poster stands out from the crowd with its authenticity and originality.</p>
     </div>
     <div class="flex w-full justify-evenly">
-        <app-card></app-card>
-        <app-card></app-card>
-        <app-card></app-card>
+        <app-card *ngFor="let poster of posters | slice:0:3" [album]="poster.album" [artist]="poster.artist"  [url]="poster.posterFile"></app-card>
     </div>
     <div class="flex justify-center">
         <div class="border-2 border-bgHigh my-12 rounded-full w-4/6"></div>

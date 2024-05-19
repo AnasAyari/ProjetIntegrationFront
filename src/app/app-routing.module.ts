@@ -4,20 +4,40 @@ import { FormComponent } from './info/form/form.component';
 import { LogInComponent } from './info/log-in/log-in.component';
 import { SignUpComponent } from './info/sign-up/sign-up.component';
 import { LandingComponent } from './landing/landing/landing.component';
+import { HomeComponent } from './home/home.component';
+import { PostListComponent } from './content/post-list/post-list.component';
+import { ProductsComponent } from './products/products/products.component';
+import { authGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-  {path:'landing' ,component:LandingComponent },
-  {path: '', redirectTo: 'landing', pathMatch: 'full' },
-  {path:"form",component:FormComponent,
-    children:[
-    {path:"login",component:LogInComponent},
-    {path:"signup",component:SignUpComponent},
+ 
+   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  
+
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      { path: 'landing', component: LandingComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'comunity', component: PostListComponent ,canActivate: [authGuard]},
+      { path: '', redirectTo: 'landing', pathMatch: 'full' },
+      { path: '**', redirectTo: 'landing', pathMatch: 'full' },
+    ],
+  },
+
+  {
+    path: 'form',
+    component: FormComponent,
+    children: [
+      { path: 'login', component: LogInComponent },
+      { path: 'signup', component: SignUpComponent },
     ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -7,12 +7,12 @@ import { Poster } from '../Classes/poster';
   providedIn: 'root',
 })
 export class PosterService {
-  private baseURL = 'http://127.0.0.1:8000/api/posters';
+  private baseURL = 'http://localhost:8000/poster';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllPosters(): Observable<Poster[]> {
-    return this.httpClient.get<Poster[]>(`${this.baseURL}`);
+    return this.httpClient.get<Poster[]>(`${this.baseURL}/posters`);
   }
 
   getPosterById(posterId: number): Observable<Poster> {
