@@ -39,6 +39,12 @@ class PostController extends AbstractController
             $data = json_decode($request->getContent(), true);
             $post->setImageURL($data['imageURL']);
             $post->setDescription($data['description']);
+            $post->setLikes($data['likes'] ?? 0);
+            try {
+                $post->setAddedAt(new \DateTimeImmutable($data['addedAt']));
+            } catch (\Exception $e) {
+                return new JsonResponse(['error' => 'Invalid date format for addedAt'], Response::HTTP_BAD_REQUEST);
+            }
             // Get the user by its id
             $user = $userRepository->find($data['userId']);
             $post->setUser($user);
@@ -72,6 +78,8 @@ public function edit(Request $request, Post $post, EntityManagerInterface $entit
         $data = json_decode($request->getContent(), true);
         $post->setImageURL($data['imageURL']);
         $post->setDescription($data['description']);
+        $post->setLikes($data['likes'] ?? 0);
+        $post->setAddedAt(new \DateTimeImmutable());
         // Get the user by its id
         $user = $userRepository->find($data['userId']);
         $post->setUser($user);

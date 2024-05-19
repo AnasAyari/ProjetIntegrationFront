@@ -40,6 +40,7 @@ class PosterController extends AbstractController
             $poster->setQuantity($data['quantity']);
             $poster->setAddedAt(new \DateTimeImmutable());
             $poster->setUpdatedAt(new \DateTimeImmutable());
+            $poster->setPosterFile($data['posterFile']);
             $entityManager->persist($poster);
             $entityManager->flush();
             return new JsonResponse(['status' => 'Poster created'], Response::HTTP_CREATED);
@@ -72,6 +73,7 @@ class PosterController extends AbstractController
             $poster->setAlbum($data['album']);
             $poster->setQuantity($data['quantity']);
             $poster->setUpdatedAt(new \DateTimeImmutable());
+            $poster->setPosterFile($data['posterFile']);
             $entityManager->flush();
             return new JsonResponse(['status' => 'Poster updated'], Response::HTTP_OK);
         } catch (\Exception $e) {
