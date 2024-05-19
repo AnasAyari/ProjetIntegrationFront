@@ -35,13 +35,15 @@ export class LogInComponent {
     this.userService.getUserByEmail('aaa@gmail.com').subscribe(
       (data) => {
         this.user = data;
+        console.log(this.user);
+        
       },
       (error) => {
         console.error('Error fetching user', error);
       }
     );
     this.getAllUsers();
-    console.log(this.loginForm.value.remember);
+    
      
   }
 
@@ -57,8 +59,6 @@ export class LogInComponent {
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
       const remember = this.loginForm.value.remember;
-      console.log(remember);
-      
 
       this.authService.login(email, password,remember);
       
