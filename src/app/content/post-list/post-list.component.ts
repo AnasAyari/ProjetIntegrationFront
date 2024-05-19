@@ -7,35 +7,50 @@ import { PostService } from 'src/app/Services/post.service';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.css']
+  styleUrls: ['./post-list.component.css'],
 })
 export class PostListComponent {
-  postForm!:FormGroup
-  newPost :Post=new Post();
-  private readonly USER_ID_KEY = 'USER_ID_KEY';
-  
+  postForm!: FormGroup;
+  newPost: Post = new Post();
+  posts : any[] = [];
+  private readonly USER_ID_KEY = 'user_id';
+
   constructor(
-    private formBulder:FormBuilder,
-    private authService:AuthService,
-    private postService:PostService
-  ){}
+    private formBulder: FormBuilder,
+    private authService: AuthService,
+    private postService: PostService
+  ) {}
   ngOnInit(): void {
-    this.postForm=this.formBulder.group({
-      imageUrl:['', [Validators.required]],
-      description:['', [Validators.required, Validators.maxLength(50)]],
-    })
+    this.postForm = this.formBulder.group({
+      imageURL: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(50)]],
+    });
+    this.getALLPosts();
   }
-  onSubmit(){
-    if (this.postForm.valid){
-      this.newPost=this.postForm.value;
-      this.newPost.addedAt=new Date();
-      this.newPost.likes=0;
-      this.newPost.userId=Number(localStorage.getItem(this.USER_ID_KEY));
+
+  getALLPosts(): void {
+    this.postService.getAllPosts().subscribe((data) => {
+      this.posts = data;
+      console.log(this.posts);
+      
+    });
+  }
+  onSubmit() {
+    if (this.postForm.valid) {
+      this.newPost = this.postForm.value;
+      this.newPost.imageURL = this.newPost.imageURL.replace(
+        'C:\\fakepath\\',
+        ''
+      );
+      this.newPost.addedAt = new Date();
+      this.newPost.likes = 0;
+      this.newPost.userId = Number(localStorage.getItem(this.USER_ID_KEY));
       console.log(this.newPost);
-      this.postService.createPost(this.newPost).subscribe((data)=>{
+      this.postService.createPost(this.newPost).subscribe((data) => {
         console.log('Post successfully added!', data);
         this.postForm.reset();
-      })
+        window.location.reload();
+      });
     }
   }
 }
