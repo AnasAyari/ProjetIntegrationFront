@@ -25,6 +25,9 @@ class Post
     #[ORM\Column]
     private ?int $likes = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $posted_at = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Post
     public function setLikes(int $likes): static
     {
         $this->likes = $likes;
+
+        return $this;
+    }
+
+    public function getPostedAt(): ?\DateTimeImmutable
+    {
+        return $this->posted_at;
+    }
+
+    public function setPostedAt(\DateTimeImmutable $posted_at): static
+    {
+        $this->posted_at = $posted_at;
 
         return $this;
     }
