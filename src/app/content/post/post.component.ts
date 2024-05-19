@@ -31,8 +31,8 @@ export class PostComponent {
   }
 
   getAllComments(): void {
-    this.commentService.getComments().subscribe((data) => {
-      this.comments = data;
+    this.commentService.getCommentsByPostId(this.postId).subscribe((data) => {
+      this.comments = data as Comment[];
       console.log(this.comments);
     });
   }
@@ -43,13 +43,17 @@ export class PostComponent {
       this.newComment.postId = this.postId;
       this.newComment.userId = Number(localStorage.getItem(this.USER_ID_KEY));
       console.log(this.newComment);
-      this.commentService.createComment(this.newComment).subscribe((data) => {
-        console.log('Comment successfully added!', data);
-        this.comments.push(data);
-        this.commentForm.reset();
-      });
+      this.commentService
+        .createComment(this.newComment)
+        .subscribe((data: Comment) => {
+          console.log('Comment successfully added!', data);
+          this.newComment.id = data.id; // assuming the returned data contains the id of the new comment
+          this.comments.push(this.newComment);
+          this.commentForm.reset();
+        });
     }
   }
+  
   like = true;
   toggleLike() {
     this.like = !this.like;
