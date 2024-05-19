@@ -3,6 +3,6 @@ export class User {
     public username!: string;
     public email!: string;
     public password!: string;
-    public is_admin!: boolean;
+    public isAdmin!: boolean;
     public numero!: number;
 }

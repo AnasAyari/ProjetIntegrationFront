@@ -29,8 +29,8 @@ export class AuthService {
           );
         }
 
-        if (authenticatedUser.is_admin) {
-          this.router.navigate(['/dashboard']);
+        if (authenticatedUser.isAdmin) {
+          window.location.href = 'http://localhost:8000/admin';
         } else {
           this.router.navigate(['/home']);
         }

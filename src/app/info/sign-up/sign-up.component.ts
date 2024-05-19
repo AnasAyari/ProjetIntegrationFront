@@ -47,7 +47,7 @@ export class SignUpComponent implements OnInit {
             this.newUser = this.signupForm.value;
             console.log(this.newUser);
             
-            this.newUser.is_admin = false;
+            this.newUser.isAdmin = false;
             this.userService.createUser(this.newUser).subscribe((data) => {
               console.log(data);
               this.router.navigate(['/form/login']);
