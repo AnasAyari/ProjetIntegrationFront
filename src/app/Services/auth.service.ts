@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServiceService } from './user-service.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +33,22 @@ export class AuthService {
         if (authenticatedUser.isAdmin) {
           window.location.href = 'http://localhost:8000/admin';
         } else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Welcome ' + authenticatedUser.username,
+            text: 'Enjoy the Posters',
+            width: '500px',
+          });
           this.router.navigate(['/home']);
         }
       } else {
-        alert('User not found or incorrect password');
+         Swal.fire({
+           icon: 'error',
+           title: 'Oops...',
+           text: 'User not found or incorrect password',
+           width: '300px',
+           
+         });
       }
     });
   }
@@ -44,9 +57,17 @@ export class AuthService {
     localStorage.removeItem(this.USER_ID_KEY);
     sessionStorage.removeItem(this.USER_ID_KEY);
     localStorage.removeItem(this.isAnAdmin);
-    alert('You have been logged outT');
-    this.router.navigate(['/home']);
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'See you soon',
+      text: 'You have been logged Out',
+      width: '350px',
+    });
+    this.router.navigate(['/home/landing']);
+    
     window.location.reload();
+    
   }
 
   isAuthenticated(): boolean {
