@@ -17,6 +17,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/poster')]
 class PosterController extends AbstractController
 {
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     #[Route('/posters', name: 'app_poster_index', methods: ['GET'])]
     public function index(PosterRepository $posterRepository, SerializerInterface $serializer): Response
     {
@@ -119,4 +126,5 @@ class PosterController extends AbstractController
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    
 }

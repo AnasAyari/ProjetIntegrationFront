@@ -21,6 +21,17 @@ class PosterRepository extends ServiceEntityRepository
         parent::__construct($registry, Poster::class);
     }
 
+
+    public function findByArtist(string $artist)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.artist = :artist')
+            ->setParameter('artist', $artist)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Poster[] Returns an array of Poster objects
 //     */
