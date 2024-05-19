@@ -19,11 +19,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['command'])]
+    #[Groups(['command','comment','post'])]
     private ?int $id = null;
     
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['command'])]
+    #[Groups(['command','comment','post'])]
     private ?string $email = null;
     
     #[ORM\Column]
@@ -42,8 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $numero = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['command'])]
+   #[Groups(['command', 'comment', 'post'])]
     private ?string $username = null;
+
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: "user")]
+    private $comments;
     
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Command::class)]
     private $commands;
@@ -61,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->commands = new ArrayCollection();
         $this->sentMessages = new ArrayCollection();
         $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
     
     
@@ -181,6 +185,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): static
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getCommands(): Collection
+    {
+        return $this->commands;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->removeElement($command)) {
+            // set the owning side to null (unless already changed)
+            if ($command->getUser() === $this) {
+                $command->setUser(null);
+            }
+        }
 
         return $this;
     }

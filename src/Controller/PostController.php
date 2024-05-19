@@ -24,7 +24,7 @@ class PostController extends AbstractController
     {
         try {
             $data = $postRepository->findAll();
-            $response = $serializer->serialize($data, 'json');
+            $response = $serializer->serialize($data, 'json', ['groups' => 'post']);
             return new JsonResponse($response, 200, [], true);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -64,7 +64,7 @@ class PostController extends AbstractController
             if ($post === null) {
                 throw new \Exception('Post not found');
             }
-            $response = $serializer->serialize($post, 'json');
+            $response = $serializer->serialize($post, 'json', ['groups' => 'post']);
             return new JsonResponse($response, 200, [], true);
         } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -72,23 +72,23 @@ class PostController extends AbstractController
     }
 
    #[Route('/{id}/edit', name: 'app_post_edit', methods: ['PUT'])]
-public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
-{
-    try {
-        $data = json_decode($request->getContent(), true);
-        $post->setImageURL($data['imageURL']);
-        $post->setDescription($data['description']);
-        $post->setLikes($data['likes'] ?? 0);
-        $post->setAddedAt(new \DateTimeImmutable());
-        // Get the user by its id
-        $user = $userRepository->find($data['userId']);
-        $post->setUser($user);
-        $entityManager->flush();
-        return new JsonResponse(['status' => 'Post updated'], Response::HTTP_OK);
-    } catch (\Exception $e) {
-        return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    {
+        try {
+            $data = json_decode($request->getContent(), true);
+            $post->setImageURL($data['imageURL']);
+            $post->setDescription($data['description']);
+            $post->setLikes($data['likes'] ?? 0);
+            $post->setAddedAt(new \DateTimeImmutable());
+            // Get the user by its id
+            $user = $userRepository->find($data['userId']);
+            $post->setUser($user);
+            $entityManager->flush();
+            return new JsonResponse(['status' => 'Post updated'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
-}
 
     #[Route('/{id}', name: 'app_post_delete', methods: ['DELETE'])]
     public function delete($id, PostRepository $postRepository, EntityManagerInterface $entityManager): Response
