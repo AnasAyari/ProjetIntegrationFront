@@ -96,4 +96,27 @@ class PosterController extends AbstractController
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    #[Route('', name: 'app_poster_get_by_artist', methods: ['GET'])]
+    public function getPosterByartist(Request $request, posterRepository $PosterRepository, SerializerInterface $serializer): Response
+    {
+        try {
+            $artist = $request->query->get('artist');
+            
+            if (!$artist) {
+                return new JsonResponse(['message' => 'artist parameter is missing'], Response::HTTP_BAD_REQUEST);
+            }
+
+            $artist = $PosterRepository->findByartist($artist);
+
+            if ($artist === null) {
+                return new JsonResponse(['message' => 'poster not found'], Response::HTTP_NOT_FOUND);
+            }
+
+            $response = $serializer->serialize($artist, 'json');
+            return new JsonResponse($response, Response::HTTP_OK, [], true);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }
