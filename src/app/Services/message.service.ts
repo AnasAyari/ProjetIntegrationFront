@@ -7,7 +7,7 @@ import { Message } from '../Classes/message';
   providedIn: 'root',
 })
 export class MessageService {
-  private baseURL = 'http://127.0.0.1:8000/api/messages';
+  private baseURL = 'http://127.0.0.1:8000/messages';
 
   constructor(private httpClient: HttpClient) {}
 

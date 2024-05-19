@@ -7,19 +7,19 @@ import { Post } from '../Classes/post';
   providedIn: 'root',
 })
 export class PostService {
-  private baseURL = 'http://localhost:8000';
+  private baseURL = 'http://localhost:8000/post';
 
   constructor(private httpClient: HttpClient) {}
 
   getAllPosts(): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${this.baseURL}/post/posts`);
+    return this.httpClient.get<Post[]>(`${this.baseURL}/posts`);
   }
 
   getPostById(postId: number): Observable<Post> {
     return this.httpClient.get<Post>(`${this.baseURL}/${postId}`);
   }
 
-  createPost(post:Post): Observable<Post>{
-    return this.httpClient.post<Post>(`${this.baseURL}/post/new`, post);
+  createPost(post: Post): Observable<Post> {
+    return this.httpClient.post<Post>(`${this.baseURL}`, post);
   }
 }

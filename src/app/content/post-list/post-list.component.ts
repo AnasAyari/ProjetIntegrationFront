@@ -12,7 +12,7 @@ import { PostService } from 'src/app/Services/post.service';
 export class PostListComponent {
   postForm!: FormGroup;
   newPost: Post = new Post();
-  posts : any[] = [];
+  posts: any[] = [];
   private readonly USER_ID_KEY = 'user_id';
 
   constructor(
@@ -32,7 +32,6 @@ export class PostListComponent {
     this.postService.getAllPosts().subscribe((data) => {
       this.posts = data;
       console.log(this.posts);
-      
     });
   }
   onSubmit() {
@@ -46,10 +45,11 @@ export class PostListComponent {
       this.newPost.likes = 0;
       this.newPost.userId = Number(localStorage.getItem(this.USER_ID_KEY));
       console.log(this.newPost);
-      this.postService.createPost(this.newPost).subscribe((data) => {
+      this.postService.createPost(this.newPost).subscribe((data: Post) => {
         console.log('Post successfully added!', data);
+        this.newPost.id = data.id; // assuming the returned data contains the id of the new post
+        this.posts.unshift(this.newPost); // add the new post to the start of the posts array
         this.postForm.reset();
-        window.location.reload();
       });
     }
   }

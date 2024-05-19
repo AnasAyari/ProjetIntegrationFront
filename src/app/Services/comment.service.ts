@@ -30,6 +30,6 @@ export class CommentService {
   }
 
   createComment(comment: Comment): Observable<Comment> {
-    return this.httpClient.post<Comment>(`${this.baseURL}/new`, comment);
+    return this.httpClient.post<Comment>(`${this.baseURL}`, comment);
   }
 }

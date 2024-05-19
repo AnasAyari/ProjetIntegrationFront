@@ -7,7 +7,7 @@ import { Command } from '../Classes/command';
   providedIn: 'root',
 })
 export class CommandService {
-  private baseURL = 'http://127.0.0.1:8000/api/commands';
+  private baseURL = 'http://127.0.0.1:8000/commands';
 
   constructor(private httpClient: HttpClient) {}
 
