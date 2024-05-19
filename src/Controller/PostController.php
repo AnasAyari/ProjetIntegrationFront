@@ -41,7 +41,7 @@ class PostController extends AbstractController
             $post->setDescription($data['description']);
             $post->setLikes($data['likes'] ?? 0);
             try {
-                $post->setAddedAt(new \DateTimeImmutable($data['addedAt']));
+                $post->setAddedAt(new \DateTimeImmutable());
             } catch (\Exception $e) {
                 return new JsonResponse(['error' => 'Invalid date format for addedAt'], Response::HTTP_BAD_REQUEST);
             }
