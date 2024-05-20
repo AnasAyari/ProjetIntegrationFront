@@ -4,5 +4,5 @@ export class Post {
   public imageURL!: string
   public userId!: number
   public likes!: number
-  public addedAt!:Date
+  public added_at!:Date
 }
