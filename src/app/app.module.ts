@@ -40,7 +40,9 @@ import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
     PostListComponent,
     ProductsComponent,
     FilterComponent,
-    PostersComponent
+    PostersComponent,
+    HomeComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

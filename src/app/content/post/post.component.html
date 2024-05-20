@@ -1,17 +1,21 @@
 <div
   class="flex flex-col rounded-lg border-2 shadow-xl w-full items-center bg-white"
 >
-  <div class="flex items-center px-6 pt-4 self-start">
-    <img src="" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
-    <h1 class="text-xl font-bold">{{ username }}</h1>
+  <div class="flex justify-between w-full items-center">
+    <div class="flex items-center px-6 pt-4 self-start">
+      <img src="" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
+      <h1 class="text-xl font-bold">{{ username }}</h1>
+    </div>
+    <p class="mr-8 opacity-70">{{date}}</p>
   </div>
-  <div
-    class="border border-black rounded-md w-11/12 flex justify-center p-2 my-4"
-  >
+  <div class="self-start px-6 mt-4">
+    <p>{{description}}</p>
+  </div>
+  <div class="border border-black rounded-md w-11/12 flex justify-center p-2 my-4 h-96 contain">
     <img
       src=""
       alt=""
-      class="bg-red-900 w-full h-96 rounded-md"
+      class="bg-white w-full rounded-md object-contain"
       [src]="'assets/imgs/' + imageURL"
     />
   </div>
@@ -49,9 +53,7 @@
     <div class="w-full border-t border-black"></div>
     <div class="flex justify-center">
       <div class="flex justify-between items-center w-11/12">
-        <!-- <input type="text" class="border-b-2 border-black text-bg bg-transparent w-11/12 text-xl my-4 placeholder:text-black" placeholder="Write a comment.">
-                <i class="fa-solid fa-paper-plane fa-2xl" style="color: #000000;"></i> -->
-        <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="flex justify-between w-full">
           <input
             class="border-b-2 border-black text-bg bg-transparent w-11/12 text-xl my-4 placeholder:text-black"
             formControlName="content"

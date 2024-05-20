@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { PostListComponent } from './content/post-list/post-list.component';
 import { ProductsComponent } from './products/products/products.component';
 import { authGuard } from './guard/auth.guard';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
  
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'landing', component: LandingComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'comunity', component: PostListComponent ,canActivate: [authGuard]},
+      { path : 'contact' , component: ContactComponent,canActivate:[authGuard]},
       { path: '', redirectTo: 'landing', pathMatch: 'full' },
       { path: '**', redirectTo: 'landing', pathMatch: 'full' },
     ],
