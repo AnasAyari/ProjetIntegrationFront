@@ -1,6 +1,6 @@
 <div class="flex justify-center py-16">
     <div class="flex w-11/12 justify-between">
-        <app-filter></app-filter>
-        <app-posters></app-posters>
+        <app-filter (filterChange)="postersComponent.onFilterChange($event)"></app-filter>
+        <app-posters #postersComponent></app-posters>
     </div>
 </div>

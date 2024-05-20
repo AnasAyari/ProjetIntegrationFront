@@ -24,10 +24,10 @@ import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
 import { LabComponent } from './lab/lab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommandComponent } from './products/command/command.component';
+import { ApiComponent } from './api/api.component';
+import { PosterDetailComponent } from './products/poster-detail/poster-detail.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
-
-
 
 @NgModule({
   declarations: [
@@ -51,16 +51,18 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
     ContactComponent,
     FilterByPostIdPipe,
     LabComponent,
+    PosterDetailComponent,
     CommandComponent,
+    ApiComponent,
     UserProfileComponent,
-    EditUserComponent
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
