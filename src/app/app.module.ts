@@ -22,6 +22,8 @@ import { PostersComponent } from './products/posters/posters.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
+import { PosterDetailComponent } from './products/poster-detail/poster-detail.component';
+import { CommandComponent } from './products/command/command.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,11 @@ import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
     PostListComponent,
     ProductsComponent,
     FilterComponent,
-    PostersComponent
+    PostersComponent,
+    HomeComponent,
+    ContactComponent,
+    PosterDetailComponent,
+    CommandComponent
   ],
   imports: [
     BrowserModule,

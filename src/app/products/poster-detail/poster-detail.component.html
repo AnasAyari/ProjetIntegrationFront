@@ -1,0 +1,7 @@
+<div class="flex flex-col items-center justify-center p-6">
+  <img [src]="'assets/imgs/' + poster.posterFile" class="w-64 h-64 object-cover rounded-lg shadow-md" alt="{{poster.album}}">
+  <h2 class="mt-6 text-2xl font-semibold text-gray-700">{{poster.album}}</h2>
+  <h3 class="mt-2 text-lg text-gray-600">By {{poster.artist}}</h3>
+  <p class="mt-2 text-gray-500">Added at: {{poster.addedAt | date}}</p>
+  <p class="mt-2 text-gray-500">Quantity: {{poster.quantity}}</p>
+</div>

@@ -12,10 +12,10 @@ export class PostersSecComponent {
   constructor(private posterService: PosterService) {}
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getAllPostes();
   }
 
-  getAllUsers() {
+  getAllPostes() {
     this.posterService.getAllPosters().subscribe((data) => {
       this.posters = data;
       console.log(this.posters);

@@ -1,8 +1,6 @@
 export class Command {
-    public clientId!: number
-    public posterId!: number
-    public commandId!: number
-    public location!: string
+  public id?: number;
+  public userId!: number;
+  public posters!: number[];
+  public location!: string;
 }
-
-
