@@ -13,7 +13,6 @@ import { SuggestionComponent } from './landing/suggestion/suggestion.component';
 import { FormComponent } from './info/form/form.component';
 import { LogInComponent } from './info/log-in/log-in.component';
 import { SignUpComponent } from './info/sign-up/sign-up.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { PostComponent } from './content/post/post.component';
 import { PostListComponent } from './content/post-list/post-list.component';
 import { ProductsComponent } from './products/products/products.component';
@@ -22,6 +21,11 @@ import { PostersComponent } from './products/posters/posters.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
+import { LabComponent } from './lab/lab.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommandComponent } from './products/command/command.component';
+
+
 
 @NgModule({
   declarations: [
@@ -42,13 +46,17 @@ import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
     FilterComponent,
     PostersComponent,
     HomeComponent,
-    ContactComponent
+    ContactComponent,
+    FilterByPostIdPipe,
+    LabComponent,
+    CommandComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

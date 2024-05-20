@@ -7,10 +7,10 @@
   <div class="bg-yellow h-2/6 rounded-b-lg p-2">
     <h1 class="font-bold text-2xl uppercase font-arial">{{ artist }}</h1>
     <h1 class="font-semibold text-lg">{{ album }}</h1>
-    <div class="p-4">
+    <div class="mt-2">
       <button
         *ngIf="showDetailsButton"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        class="bg-bg hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded-full"
         (click)="goToDetails(posterId)"
       >
         Details

@@ -1,7 +1,12 @@
-<div class="flex flex-col items-center justify-center p-6">
-  <img [src]="'assets/imgs/' + poster.posterFile" class="w-64 h-64 object-cover rounded-lg shadow-md" alt="{{poster.album}}">
-  <h2 class="mt-6 text-2xl font-semibold text-gray-700">{{poster.album}}</h2>
-  <h3 class="mt-2 text-lg text-gray-600">By {{poster.artist}}</h3>
-  <p class="mt-2 text-gray-500">Added at: {{poster.addedAt | date}}</p>
-  <p class="mt-2 text-gray-500">Quantity: {{poster.quantity}}</p>
+<div class="flex flex-col items-center">
+  <div class="flex items-center w-5/6 mt-8 border rounded shadow">
+    <img [src]="'assets/imgs/' + poster.posterFile" class="w-96 h-96 border-2 object-cover rounded-lg self-start mr-12" alt="{{poster.album}}">
+    <div>
+      <h2 class="my-6 text-6xl font-semibold text-bg uppercase">{{poster.album}}</h2>
+      <h3 class="my-2 text-4xl text-gray-600">By {{poster.artist}}</h3>
+      <p class="my-2 text-xl text-gray-500">Added at: {{poster.addedAt }}</p>
+      <p class="my-2 text-xl text-gray-500">Quantity: {{poster.quantity}}</p>
+    </div>
+  </div>
+  <button (click)="NavigateBack()" class="text-3xl border-3 border-bg hover:border-yellow uppercase font-arial hover:bg-yellow rounded-full my-12 hover:scale-110 duration-200 py-2 px-4 hover:shadow-xl">Back</button>
 </div>

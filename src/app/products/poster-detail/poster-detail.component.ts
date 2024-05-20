@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Poster } from 'src/app/Classes/poster';
 import { PosterService } from 'src/app/Services/poster.service';
 
@@ -13,7 +13,8 @@ export class PosterDetailComponent {
   
   constructor(
     private route: ActivatedRoute,
-    private posterService: PosterService
+    private posterService: PosterService,
+    private router:Router
   ) {}
 
   ngOnInit() {
@@ -25,5 +26,8 @@ export class PosterDetailComponent {
       console.log(this.poster);
       
     });
+  }
+  NavigateBack(){
+    this.router.navigate(['home/products']);
   }
 }

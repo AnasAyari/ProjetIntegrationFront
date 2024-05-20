@@ -27,6 +27,8 @@ const routes: Routes = [
       { path: 'poster-detail/:id', component: PosterDetailComponent },
       { path: 'comunity', component: PostListComponent ,canActivate: [authGuard]},
       { path : 'contact' , component: ContactComponent,canActivate:[authGuard]},
+      { path : 'lab' , component:LabComponent,canActivate:[authGuard]},
+      { path : 'command', component:CommandComponent, canActivate:[authGuard]},
       { path: '', redirectTo: 'landing', pathMatch: 'full' },
       { path: '**', redirectTo: 'landing', pathMatch: 'full' },
     ],

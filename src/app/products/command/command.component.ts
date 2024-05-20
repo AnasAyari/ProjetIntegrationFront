@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Command } from 'src/app/Classes/command';
+import { FormBuilder, FormArray, Validators, FormGroup,  } from '@angular/forms';
 import { CommandService } from 'src/app/Services/command.service';
 import { PosterService } from 'src/app/Services/poster.service';
 
