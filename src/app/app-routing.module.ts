@@ -14,9 +14,9 @@ import { CommandComponent } from './products/command/command.component';
 import { LabComponent } from './lab/lab.component';
 
 const routes: Routes = [
- 
-   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
 
   {
     path: 'home',
@@ -25,7 +25,8 @@ const routes: Routes = [
       { path: 'landing', component: LandingComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'poster-detail/:id', component: PosterDetailComponent },
-      { path: 'comunity', component: PostListComponent ,canActivate: [authGuard]},
+      { path: 'comunity', component: PostListComponent, canActivate: [authGuard] },
+      { path: 'command', component: CommandComponent },
       { path : 'contact' , component: ContactComponent,canActivate:[authGuard]},
       { path : 'lab' , component:LabComponent,canActivate:[authGuard]},
       { path : 'command', component:CommandComponent, canActivate:[authGuard]},
@@ -48,4 +49,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
