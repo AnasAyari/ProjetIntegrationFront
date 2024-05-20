@@ -22,7 +22,6 @@ import { PostersComponent } from './products/posters/posters.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
-import { LabComponent } from './lab/lab.component';
 
 @NgModule({
   declarations: [
@@ -43,16 +42,15 @@ import { LabComponent } from './lab/lab.component';
     FilterComponent,
     PostersComponent,
     HomeComponent,
-    ContactComponent,
-    LabComponent
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

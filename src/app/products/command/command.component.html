@@ -1,0 +1,22 @@
+<form [formGroup]="commandForm" (ngSubmit)="onSubmit()">
+  <div class="grid grid-cols-3 gap-4">
+    <div *ngFor="let poster of posters; let i = index" class="h-96 shadow-2xl w-64 rounded-lg transform hover:scale-105 transition duration-200 ease-out my-4">
+      <div class="bg-white h-48 rounded-t-lg">
+        <img class="rounded object-cover w-full h-full" [src]="'assets/imgs/' + poster.posterFile">
+      </div>
+      <div class="bg-yellow-600 h-32 rounded-b-lg p-4">
+        <h1 class="text-black text-lg font-bold">{{ poster.album }}</h1>
+        <br>
+        <h1 class="text-black text-lg font-bold">{{ poster.artist }}</h1>
+      </div>
+      <div class="p-4">
+        <input type="checkbox" [formControlName]="i" class="form-checkbox h-5 w-5 text-blue-600">
+      </div>
+    </div>
+  </div>
+  <div class="mt-4">
+    <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+    <input type="text" id="location" formControlName="location" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+  </div>
+  <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Submit Command</button>
+</form>

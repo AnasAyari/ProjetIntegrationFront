@@ -8,15 +8,20 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  cartCount = 0;
+  commandService: any;
   constructor(private router: Router, private auth: AuthService) {}
   logedIn = this.auth.isAuthenticated();
   NavigateTo() {
     this.router.navigate(['form/login']);
   }
 
-
   logOut() {
     this.auth.logout();
+  }
+
+  navigateToCommand() {
+    this.router.navigate(['home/command']);
   }
 
   showAlert() {

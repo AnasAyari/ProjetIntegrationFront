@@ -1,10 +1,20 @@
-<div class="h-96 shadow-2xl w-64 rounded-lg hover:scale-105 duration-200 ease-out my-4">
-    <div class="bg-white h-4/6 rounded-t-lg">
-
-        <img class="rounded cover" [src]="'assets/imgs/' + url">
+<div
+  class="h-96 shadow-2xl w-64 rounded-lg hover:scale-105 duration-200 ease-out my-4"
+>
+  <div class="bg-white h-4/6 rounded-t-lg">
+    <img class="rounded object-cover w-full h-full" [src]="'assets/imgs/' + url" />
+  </div>
+  <div class="bg-yellow h-2/6 rounded-b-lg p-2">
+    <h1 class="font-bold text-2xl uppercase font-arial">{{ artist }}</h1>
+    <h1 class="font-semibold text-lg">{{ album }}</h1>
+    <div class="p-4">
+      <button
+        *ngIf="showDetailsButton"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        (click)="goToDetails(posterId)"
+      >
+        Details
+      </button>
     </div>
-    <div class="bg-yellow h-2/6 rounded-b-lg p-2">
-        <h1 class="font-bold text-2xl uppercase font-arial">{{ artist }}</h1>
-        <h1 class="font-semibold text-lg">{{ album }}</h1>
-    </div>
+  </div>
 </div>
