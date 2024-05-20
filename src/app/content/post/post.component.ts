@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/Services/comment.service';
 import { Comment } from 'src/app/Classes/comment';
+import { UserServiceService } from 'src/app/Services/user-service.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -18,11 +19,13 @@ export class PostComponent {
   commentForm!: FormGroup;
   newComment: Comment = new Comment();
   comments: any[] = [];
+  user: any = {};
   private readonly USER_ID_KEY = 'user_id';
 
   constructor(
     private formBuilder: FormBuilder,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private userService: UserServiceService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +33,14 @@ export class PostComponent {
       content: ['', [Validators.required, Validators.maxLength(50)]],
     });
     this.getAllComments();
+     this.userService
+       .getUserById(Number(localStorage.getItem(this.USER_ID_KEY)))
+       .subscribe((data) => {
+         this.user = data;
+         console.log(this.user);
+       });
+       console.log(this.postId);
+       
   }
 
   getAllComments(): void {

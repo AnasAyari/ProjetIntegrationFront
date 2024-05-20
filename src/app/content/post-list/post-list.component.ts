@@ -14,7 +14,7 @@ export class PostListComponent {
   postForm!: FormGroup;
   newPost: Post = new Post();
   posts: any[] = [];
-  user: any;
+  user: any = {};
   private readonly USER_ID_KEY = 'user_id';
 
   constructor(

@@ -1,11 +1,11 @@
 <form [formGroup]="filterForm" (ngSubmit)="onFilterChange()" class="w-64 bg-bg p-8 text-white rounded-lg shadow-lg sticky">
     <div class="mb-4">
       <label for="artist" class="block font-bold mb-2">Artist</label>
-      <input type="text" formControlName="artist" id="artist" name="artist" placeholder="Search Artist" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" (input)="onFilterChange()">
+      <input type="text" formControlName="artist" id="artist" name="artist" placeholder="Search Artist" class="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" (input)="onFilterChange()">
     </div>
     <div class="mb-4">
       <label for="album" class="block font-bold mb-2">Album</label>
-      <input type="text" formControlName="album" id="album" name="album" placeholder="Search Album" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" (input)="onFilterChange()">
+      <input type="text" formControlName="album" id="album" name="album" placeholder="Search Album" class="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" (input)="onFilterChange()">
     </div>
     <div class="mb-4">
       <label class="block font-bold mb-2">Price Range</label>
