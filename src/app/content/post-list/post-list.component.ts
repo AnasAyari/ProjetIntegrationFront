@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Post } from 'src/app/Classes/post';
 import { AuthService } from 'src/app/Services/auth.service';
 import { PostService } from 'src/app/Services/post.service';
+import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
   selector: 'app-post-list',
@@ -13,12 +14,14 @@ export class PostListComponent {
   postForm!: FormGroup;
   newPost: Post = new Post();
   posts: any[] = [];
+  user: any;
   private readonly USER_ID_KEY = 'user_id';
 
   constructor(
     private formBulder: FormBuilder,
     private authService: AuthService,
-    private postService: PostService
+    private postService: PostService,
+    private userService: UserServiceService
   ) {}
   ngOnInit(): void {
     this.postForm = this.formBulder.group({
@@ -26,8 +29,16 @@ export class PostListComponent {
       description: ['', [Validators.required, Validators.maxLength(50)]],
     });
     this.getALLPosts();
+    this.getUser();
   }
-
+  getUser() {
+    const userId = Number(localStorage.getItem(this.USER_ID_KEY));
+    if (userId) {
+      this.userService.getUserById(userId).subscribe((user) => {
+        this.user = user;
+      });
+    }
+  }
   getALLPosts(): void {
     this.postService.getAllPosts().subscribe((data) => {
       this.posts = data;

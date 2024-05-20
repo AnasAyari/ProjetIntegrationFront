@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 export class AuthService {
   private readonly USER_ID_KEY = 'user_id';
   private authenticated = false;
-  isAnAdmin = 'admin';
+  private readonly isAnAdmin = 'admin';
   constructor(
     private router: Router,
     private userService: UserServiceService
@@ -31,6 +31,7 @@ export class AuthService {
         }
 
         if (authenticatedUser.isAdmin) {
+          localStorage.setItem(this.isAnAdmin, 'true');
           window.location.href = 'http://localhost:8000/admin';
         } else {
           Swal.fire({
@@ -42,13 +43,12 @@ export class AuthService {
           this.router.navigate(['/home']);
         }
       } else {
-         Swal.fire({
-           icon: 'error',
-           title: 'Oops...',
-           text: 'User not found or incorrect password',
-           width: '300px',
-           
-         });
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'User not found or incorrect password',
+          width: '300px',
+        });
       }
     });
   }
@@ -57,7 +57,7 @@ export class AuthService {
     localStorage.removeItem(this.USER_ID_KEY);
     sessionStorage.removeItem(this.USER_ID_KEY);
     localStorage.removeItem(this.isAnAdmin);
-    
+
     Swal.fire({
       icon: 'success',
       title: 'See you soon',
@@ -65,9 +65,8 @@ export class AuthService {
       width: '350px',
     });
     this.router.navigate(['/home/landing']);
-    
+
     window.location.reload();
-    
   }
 
   isAuthenticated(): boolean {

@@ -1,59 +1,160 @@
 <div class="flex w-full h-screen">
-    <div class="bg-yellow h-full w-1/12">
-        <div class="flex flex-col justify-around h-1/2 items-center scale-125 pt-16">
-            <button><i class="fa-solid fa-bars fa-2xl rounded-full hover:scale-125 duration-300" style="color: #000000;"></i></button>
-            <button><i class="fa-solid fa-magnifying-glass fa-2xl rounded-full hover:scale-125 duration-300" style="color: #000000;"></i></button>
-            <button><i class="fa-solid fa-text-width fa-2xl rounded-full hover:scale-125 duration-300" style="color: #000000;"></i></button>
-            <button><i class="fa-regular fa-image fa-2xl rounded-full hover:scale-125 duration-300" style="color: #000000;"></i></button>
-        </div>
+  <div class="bg-yellow h-full w-1/12">
+    <div
+      class="flex flex-col justify-around h-1/2 items-center scale-125 pt-16"
+    >
+      <button>
+        <i
+          class="fa-solid fa-bars fa-2xl rounded-full hover:scale-125 duration-300"
+          style="color: #000000"
+        ></i>
+      </button>
+      <button>
+        <i
+          class="fa-solid fa-magnifying-glass fa-2xl rounded-full hover:scale-125 duration-300"
+          style="color: #000000"
+        ></i>
+      </button>
+      <button>
+        <i
+          class="fa-solid fa-text-width fa-2xl rounded-full hover:scale-125 duration-300"
+          style="color: #000000"
+        ></i>
+      </button>
+      <button>
+        <i
+          class="fa-regular fa-image fa-2xl rounded-full hover:scale-125 duration-300"
+          style="color: #000000"
+        ></i>
+      </button>
     </div>
-    <div>
+  </div>
+  <div>
+    <div
+      class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-bg border border-gray-200 rounded-full bottom-4 left-1/2"
+    >
+      <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
         
-
-        <div class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-bg border border-gray-200 rounded-full bottom-4 left-1/2">
-            <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
-                <button data-tooltip-target="tooltip-wallet" type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                    <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-yellow " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M11.074 4 8.442.408A.95.95 0 0 0 7.014.254L2.926 4h8.148ZM9 13v-1a4 4 0 0 1 4-4h6V6a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2h-6a4 4 0 0 1-4-4Z"/>
-                        <path d="M19 10h-6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1Zm-4.5 3.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM12.62 4h2.78L12.539.41a1.086 1.086 0 1 0-1.7 1.352L12.62 4Z"/>
-                    </svg>
-                    <span class="sr-only">Items</span>
-                </button>
-                <div id="tooltip-wallet" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 rounded-lg shadow-sm opacity-0 tooltip">
-                    Items
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <div class="flex items-center justify-center">
-                    <button data-tooltip-target="tooltip-new" type="button" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-yellow hover:shadow-xl rounded-full group focus:ring-4 focus:ring-blue-300 focus:outline-none">
-                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                        </svg>
-                        <span class="sr-only">New item</span>
-                    </button>
-                </div>
-                <div id="tooltip-new" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                    Create new item
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-                <button data-tooltip-target="tooltip-settings" type="button" class="inline-flex flex-col items-center justify-center px-5 group">
-                    <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-yellow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"/>
-                    </svg>
-                    <span class="sr-only">Tweaks</span>
-                </button>
-                <div id="tooltip-settings" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Tweaks
-                    <div class="tooltip-arrow" data-popper-arrow></div>
-                </div>
-            </div>
+        <button
+          data-tooltip-target="tooltip-wallet"
+          type="button"
+          class="inline-flex flex-col items-center justify-center px-5 group"
+        >
+         
+          <svg
+            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-yellow"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M11.074 4 8.442.408A.95.95 0 0 0 7.014.254L2.926 4h8.148ZM9 13v-1a4 4 0 0 1 4-4h6V6a1 1 0 0 0-1-1H1a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h17a1 1 0 0 0 1-1v-2h-6a4 4 0 0 1-4-4Z"
+            />
+            <path
+              d="M19 10h-6a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1Zm-4.5 3.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM12.62 4h2.78L12.539.41a1.086 1.086 0 1 0-1.7 1.352L12.62 4Z"
+            />
+          </svg>
+          <span class="sr-only">Items</span>
+        </button>
+        <div
+          id="tooltip-wallet"
+          role="tooltip"
+          class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 rounded-lg shadow-sm opacity-0 tooltip"
+        >
+          Items
+          <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+        <div class="flex items-center justify-center">
+          <button
+            data-tooltip-target="tooltip-new"
+            type="button"
+            class="inline-flex items-center justify-center w-10 h-10 font-medium bg-yellow hover:shadow-xl rounded-full group focus:ring-4 focus:ring-blue-300 focus:outline-none"
+          >
+          
+           
+            <svg
+              class="w-4 h-4 text-white"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 18"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 1v16M1 9h16"
+              />
+            </svg>
+            <span class="sr-only">New item</span>
+          </button>
+        </div>
+        <!-- <label
+            for="file_input"
+            class="flex items-center rounded-full text-black cursor-pointer border border-yellow hover:bg-yellow duration-200 hover:shadow-xl"
+          >
+           <input
+              formControlName="imageURL"
+              class="hidden"
+              id="file_input"
+              type="file"
+              (change)="previewFile($event)"
+            />
+          </label> -->
+        <div
+          id="tooltip-new"
+          role="tooltip"
+          class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
+        >
+          Create new item
+          <div class="tooltip-arrow" data-popper-arrow></div>
+         
         </div>
 
-    </div>
-    <div class="flex justify-center items-center w-10/12">
-        <div class="h-3/4 w-96 bg-bg scale-125 p-2">
-            <div class="w-full h-full bg-white">
-
-            </div>
+        <button
+          data-tooltip-target="tooltip-settings"
+          type="button"
+          class="inline-flex flex-col items-center justify-center px-5 group"
+        >
+          <svg
+            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-yellow"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2"
+            />
+          </svg>
+          <span class="sr-only">Tweaks</span>
+        </button>
+        <div
+          id="tooltip-settings"
+          role="tooltip"
+          class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+        >
+          Tweaks
+          <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="flex justify-center items-center w-10/12">
+    <div class="h-3/4 w-96 bg-bg scale-125 p-2">
+      <div class="w-full h-full bg-white">
+        <img
+          [src]="previewSrc"
+          class="h-10 w-10 object-cover w-full h-full"
+          alt="Preview"
+        />
+      </div>
+    </div>
+  </div>
 </div>

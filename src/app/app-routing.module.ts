@@ -12,6 +12,8 @@ import { ContactComponent } from './contact/contact.component';
 import { PosterDetailComponent } from './products/poster-detail/poster-detail.component';
 import { CommandComponent } from './products/command/command.component';
 import { LabComponent } from './lab/lab.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { EditUserComponent } from './user/edit-user/edit-user.component';
 
 const routes: Routes = [
  
@@ -29,6 +31,8 @@ const routes: Routes = [
       { path : 'contact' , component: ContactComponent,canActivate:[authGuard]},
       { path : 'lab' , component:LabComponent,canActivate:[authGuard]},
       { path : 'command', component:CommandComponent, canActivate:[authGuard]},
+      { path : 'profile', component:UserProfileComponent, canActivate:[authGuard]},
+      { path : 'edit-user/:id', component:EditUserComponent, canActivate:[authGuard]},
       { path: '', redirectTo: 'landing', pathMatch: 'full' },
       { path: '**', redirectTo: 'landing', pathMatch: 'full' },
     ],

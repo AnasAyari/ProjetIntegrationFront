@@ -13,6 +13,7 @@ export class PostComponent {
   @Input() username!: string;
   @Input() postId!: number;
   @Input() addedAt!: Date;
+  @Input() profilePic!: string;
 
   commentForm!: FormGroup;
   newComment: Comment = new Comment();
@@ -29,11 +30,7 @@ export class PostComponent {
       content: ['', [Validators.required, Validators.maxLength(50)]],
     });
     this.getAllComments();
-   
-    
   }
-
- 
 
   getAllComments(): void {
     this.commentService.getCommentsByPostId(this.postId).subscribe((data) => {

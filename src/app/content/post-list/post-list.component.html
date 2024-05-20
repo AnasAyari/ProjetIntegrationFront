@@ -4,7 +4,7 @@
       <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
         <div class="bg-white p-4 rounded-lg shadow-md">
           <div class="flex items-center space-x-4">
-            <i class="fa-solid fa-user"></i>
+            <img [src]="'assets/imgs/' + user.profilePic" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
             <textarea
               formControlName="description"
               placeholder="What's on your mind?"
@@ -76,6 +76,7 @@
             [imageURL]="post.imageURL"
             [description]="post.description"
             [username]="post.user.username"
+            [profilePic]="post.user.profilePic"
             [addedAt]="post.added_at"
           ></app-post>
         </div>

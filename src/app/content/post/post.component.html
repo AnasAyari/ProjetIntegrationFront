@@ -3,7 +3,7 @@
 >
   <div class="flex justify-between w-full items-center">
     <div class="flex items-center px-6 pt-4 self-start">
-      <img src="" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
+      <img [src]="'assets/imgs/' + profilePic" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
       <h1 class="text-xl font-bold">{{ username }}</h1>
     </div>
     <p class="mr-8 opacity-70">{{addedAt | date:'medium' }} </p>

@@ -1,0 +1,34 @@
+<div class="flex items-center justify-center min-h-screen bg-yellow-500">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="space-y-4 bg-white p-6 rounded shadow-lg w-1/2">
+    <div>
+      <label for="username" class="block text-sm font-medium text-black">Username</label>
+      <input id="username" type="text" formControlName="username" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-black">Email</label>
+      <input id="email" type="email" formControlName="email" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="password" class="block text-sm font-medium text-black">Password</label>
+      <input id="password" type="password" formControlName="password" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="numero" class="block text-sm font-medium text-black">Numero</label>
+      <input id="numero" type="text" formControlName="numero" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="profilePic" class="block text-sm font-medium text-black">Profile Picture</label>
+      <input id="profilePic" type="file" formControlName="profilePic" (change)="onFileChange($event)" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm">
+    </div>
+
+    <div>
+      <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

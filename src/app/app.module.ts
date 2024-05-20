@@ -24,6 +24,8 @@ import { FilterByPostIdPipe } from './pipes/filter-by-post-id.pipe';
 import { LabComponent } from './lab/lab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommandComponent } from './products/command/command.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { EditUserComponent } from './user/edit-user/edit-user.component';
 
 
 
@@ -49,7 +51,9 @@ import { CommandComponent } from './products/command/command.component';
     ContactComponent,
     FilterByPostIdPipe,
     LabComponent,
-    CommandComponent
+    CommandComponent,
+    UserProfileComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
+import { UserServiceService } from 'src/app/Services/user-service.service';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +10,31 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   commandsCount = 0;
+  user: any;
   private readonly USER_ID_KEY = 'user_id';
+  private readonly isAnAdmin = 'admin';
 
   commandService: any;
-  constructor(private router: Router, private auth: AuthService) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private userService: UserServiceService
+  ) {}
   logedIn = this.auth.isAuthenticated();
-  ngOnInit(): void {
-   
+  admin = localStorage.getItem(this.isAnAdmin);
+
+  ngOnInit() {
+    this.getUser();
   }
 
-  
+  getUser() {
+    const userId = Number(localStorage.getItem(this.USER_ID_KEY));
+    if (userId) {
+      this.userService.getUserById(userId).subscribe((user) => {
+        this.user = user;
+      });
+    }
+  }
 
   NavigateTo() {
     this.router.navigate(['form/login']);
