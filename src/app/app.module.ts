@@ -46,15 +46,15 @@ import { CommandComponent } from './products/command/command.component';
     HomeComponent,
     ContactComponent,
     PosterDetailComponent,
-    CommandComponent
+    CommandComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

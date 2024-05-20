@@ -1,101 +1,85 @@
 <div class="h-screen w-full flex justify-center Post-container overflow-scroll">
-  <div>
-    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-      <label for="chat" class="sr-only">Your message</label>
-      <div class="bg-white p-4 rounded-lg shadow-md">
-        <div class="flex items-center space-x-4">
-          <i class="fa-solid fa-user"></i>
-          <textarea
-            formControlName="description"
-            placeholder="What's on your mind?"
-            class="w-full rounded-full py-2 px-4 border border-gray-300 focus:outline-none focus:border-blue-500"
-          ></textarea>
-        </div>
-        <hr class="my-4" />
-        <div class="flex justify-between items-center">
-          <div class="flex space-x-2">
-            <label
-              for="file_input"
-              class="flex items-center space-x-2 text-blue-600 cursor-pointer"
+  <div class="w-full flex flex-col items-center">
+    <div class="w-1/2 mt-16 shadow-xl">
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <div class="flex items-center space-x-4">
+            <i class="fa-solid fa-user"></i>
+            <textarea
+              formControlName="description"
+              placeholder="What's on your mind?"
+              class="w-full rounded-full py-2 px-4 border border-gray-300 focus:outline-none focus:border-blue-500"
+            ></textarea>
+          </div>
+          <hr class="my-4" />
+          <div class="flex justify-between items-center">
+            <div class="flex space-x-2">
+              <label
+                for="file_input"
+                class="flex items-center px-2 rounded-full py-1 text-black cursor-pointer border border-yellow hover:bg-yellow duration-200 hover:shadow-xl"
+              >
+                <svg
+                  class="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 16l4-4 4 4m-4-12v12"
+                  ></path>
+                </svg>
+                <span class="mr-2">Upload a photo</span>
+                <input
+                  formControlName="imageURL"
+                  class="hidden"
+                  id="file_input"
+                  type="file"
+                  (change)="previewFile($event)"
+                />
+                <img
+                  [src]="previewSrc"
+                  class="h-10 w-10 rounded-full"
+                  alt="Preview"
+                />
+              </label>
+            </div>
+            <button
+              type="submit"
+              class="hover:bg-yellow border duration-200 text-black flex items-center rounded-full py-2 px-4 shadow-xl"
             >
+              Post
               <svg
-                class="w-5 h-5"
+                class="w-3 h-3 rotate-90 rtl:-rotate-90 ml-2"
+                aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                fill="currentColor"
+                viewBox="0 0 18 20"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 16l4-4 4 4m-4-12v12"
-                ></path>
+                  d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"
+                />
               </svg>
-              <span>Photo</span>
-              <input
-                formControlName="imageURL"
-                class="hidden"
-                id="file_input"
-                type="file"
-                (change)="previewFile($event)"
-              />
-              <img
-                [src]="previewSrc"
-                class="h-15 w-12 rounded-full"
-                alt="Preview"
-              />
-            </label>
+            </button>
           </div>
-          <button
-            type="submit"
-            class="bg-blue-600 text-white rounded-full py-2 px-4"
-          >
-            Post
-            <svg
-              class="w-5 h-5 rotate-90 rtl:-rotate-90"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 18 20"
-            >
-              <path
-                d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"
-              />
-            </svg>
-          </button>
         </div>
-      </div>
-      <!-- <div
-        class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700"
-      >
-        <textarea
-          id="chat"
-          rows="1"
-          formControlName="description"
-          class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Your message..."
-        ></textarea>
-        <button
-          type="submit"
-          class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
-        >
-          
-          <span class="sr-only">Send message</span>
-        </button>
-      </div> -->
-    </form>
+      </form>
+    </div>
+    <ul class="flex flex-col items-center w-3/6">
+      <li *ngFor="let post of posts" class="w-full my-16">
+        <div>
+          <app-post
+            [postId]="post.id"
+            [imageURL]="post.imageURL"
+            [description]="post.description"
+            [username]="post.user.username"
+            [date]="post.addedAt"
+          ></app-post>
+        </div>
+      </li>
+    </ul>
   </div>
-  <ul class="flex flex-col items-center w-3/6">
-    <li *ngFor="let post of posts" class="w-full my-16">
-      <div>
-        <app-post
-          [postId]="post.id"
-          [imageURL]="post.imageURL"
-          [description]="post.description"
-          [username]="post.user.username"
-        ></app-post>
-      </div>
-    </li>
-  </ul>
 </div>

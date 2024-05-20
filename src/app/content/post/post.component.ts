@@ -12,6 +12,7 @@ export class PostComponent {
   @Input() description!: string;
   @Input() username!: string;
   @Input() postId!: number;
+  @Input() date!: Date
 
   commentForm!: FormGroup;
   newComment: Comment = new Comment();
