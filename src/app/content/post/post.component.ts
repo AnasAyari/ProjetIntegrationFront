@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/Services/comment.service';
 import { Comment } from 'src/app/Classes/comment';
@@ -12,7 +12,7 @@ export class PostComponent {
   @Input() description!: string;
   @Input() username!: string;
   @Input() postId!: number;
-  @Input() date!: Date
+  @Input() addedAt!: Date;
 
   commentForm!: FormGroup;
   newComment: Comment = new Comment();
@@ -29,12 +29,15 @@ export class PostComponent {
       content: ['', [Validators.required, Validators.maxLength(50)]],
     });
     this.getAllComments();
+   
+    
   }
+
+ 
 
   getAllComments(): void {
     this.commentService.getCommentsByPostId(this.postId).subscribe((data) => {
       this.comments = data as Comment[];
-      console.log(this.comments);
     });
   }
 
@@ -54,7 +57,7 @@ export class PostComponent {
         });
     }
   }
-  
+
   like = true;
   toggleLike() {
     this.like = !this.like;

@@ -6,7 +6,7 @@
       <img src="" alt="" class="bg-bg h-12 w-12 rounded-full mr-4" />
       <h1 class="text-xl font-bold">{{ username }}</h1>
     </div>
-    <p class="mr-8 opacity-70">{{date}}</p>
+    <p class="mr-8 opacity-70">{{addedAt | date:'medium' }} </p>
   </div>
   <div class="self-start px-6 mt-4">
     <p>{{description}}</p>
@@ -22,7 +22,7 @@
   <div class="w-full bg-yellow text-black rounded-lg">
     <div class="flex justify-between px-8 py-4 items-center w-full">
       <div>
-        <i
+        <!-- <i
           [ngClass]="
             toggleLike()
               ? 'fa-regular fa-heart fa-2xl'
@@ -31,10 +31,10 @@
           (click)="toggleLike()"
           class="mr-4"
           style="color: #000000"
-        ></i>
+        ></i> -->
         <i class="fa-regular fa-comment fa-2xl" style="color: #000000"></i>
       </div>
-      <i
+      <!-- <i
         [ngClass]="
           toggleSave()
             ? 'fa-regular fa-bookmark fa-2xl'
@@ -42,7 +42,7 @@
         "
         (click)="toggleSave()"
         style="color: #000000"
-      ></i>
+      ></i> -->
     </div>
     <div class="border-t border-black flex flex-col p-4">
     <div class="flex text-xl my-2" *ngFor="let comment of comments ">

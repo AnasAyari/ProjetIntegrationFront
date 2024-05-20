@@ -41,7 +41,7 @@ export class PostListComponent {
         'C:\\fakepath\\',
         ''
       );
-      this.newPost.addedAt = new Date();
+      this.newPost.added_at = new Date();
       this.newPost.likes = 0;
       this.newPost.userId = Number(localStorage.getItem(this.USER_ID_KEY));
       console.log(this.newPost);
