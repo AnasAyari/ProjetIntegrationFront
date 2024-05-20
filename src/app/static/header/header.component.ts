@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -7,11 +7,19 @@ import { AuthService } from 'src/app/Services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
-  cartCount = 0;
+export class HeaderComponent implements OnInit {
+  commandsCount = 0;
+  private readonly USER_ID_KEY = 'user_id';
+
   commandService: any;
   constructor(private router: Router, private auth: AuthService) {}
   logedIn = this.auth.isAuthenticated();
+  ngOnInit(): void {
+   
+  }
+
+  
+
   NavigateTo() {
     this.router.navigate(['form/login']);
   }

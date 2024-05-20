@@ -4,13 +4,17 @@
       <div class="bg-white h-48 rounded-t-lg">
         <img class="rounded object-cover w-full h-full" [src]="'assets/imgs/' + poster.posterFile">
       </div>
-      <div class="bg-yellow-600 h-32 rounded-b-lg p-4">
-        <h1 class="text-black text-lg font-bold">{{ poster.album }}</h1>
+      <div class="bg-yellow-500 h-32 rounded-b-lg p-4">
+        <h1 class="text-white-800 text-lg font-bold">{{ poster.album }}</h1>
         <br>
-        <h1 class="text-black text-lg font-bold">{{ poster.artist }}</h1>
+        <h1 class="text-white-800 text-lg font-bold">{{ poster.artist }}</h1>
       </div>
       <div class="p-4">
-        <input type="checkbox" [formControlName]="i" class="form-checkbox h-5 w-5 text-blue-600">
+        <input 
+          type="checkbox" 
+          (change)="onCheckboxChange(poster.id, $event)" 
+          class="form-checkbox h-5 w-5 text-yellow-500"
+        >
       </div>
     </div>
   </div>

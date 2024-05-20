@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, Validators, FormGroup,  } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommandService } from 'src/app/Services/command.service';
 import { PosterService } from 'src/app/Services/poster.service';
 
@@ -11,6 +11,7 @@ import { PosterService } from 'src/app/Services/poster.service';
 export class CommandComponent implements OnInit {
   private readonly USER_ID_KEY = 'user_id';
   posters: any[] = [];
+  selectedPosterIds: number[] = [];
   commandForm!: FormGroup;
 
   constructor(
@@ -21,7 +22,6 @@ export class CommandComponent implements OnInit {
 
   ngOnInit(): void {
     this.commandForm = this.formBuilder.group({
-      posters: this.formBuilder.array([]),
       location: ['', Validators.required],
     });
     this.getAllPosters();
@@ -30,27 +30,31 @@ export class CommandComponent implements OnInit {
   getAllPosters() {
     this.posterService.getAllPosters().subscribe((data) => {
       this.posters = data;
-      console.log(this.posters);
-
-      this.posters.forEach((poster, index) => {
-        (this.commandForm.controls['posters'] as FormArray).push(
-          this.formBuilder.control(false)
-        );
-      });
     });
+  }
+
+  onCheckboxChange(posterId: number, event: Event): void {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    if (isChecked) {
+      this.selectedPosterIds.push(posterId);
+    } else {
+      const index = this.selectedPosterIds.indexOf(posterId);
+      if (index > -1) {
+        this.selectedPosterIds.splice(index, 1);
+      }
+    }
+    console.log('Selected poster IDs:', this.selectedPosterIds);
   }
 
   onSubmit(): void {
     if (this.commandForm.valid) {
-      const selectedPosters = this.posters.filter(
-        (poster, index) => this.commandForm.value.posters[index]
-      );
       const command = {
         userId: Number(localStorage.getItem(this.USER_ID_KEY)),
-        posters: selectedPosters.map((poster) => poster.id),
+        posters: this.selectedPosterIds,
         location: this.commandForm.value.location,
       };
-      console.log(command);
+
+      console.log('Command:', command);
       this.commandService.createCommand(command).subscribe();
     }
   }
