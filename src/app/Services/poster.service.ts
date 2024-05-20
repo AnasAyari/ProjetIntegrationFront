@@ -18,8 +18,7 @@ export class PosterService {
   getPosterById(posterId: number): Observable<Poster> {
     return this.httpClient.get<Poster>(`${this.baseURL}/${posterId}`);
   }
-  getPosterByArtist(artist: String): Observable<Poster>{
-    
-    return this.httpClient.get<Poster>(`${this.baseURL}/poster${artist}`);
+  getPosterByArtist(artist: String): Observable<Poster[]>{
+    return this.httpClient.get<Poster[]>(`${this.baseURL}?artist=${artist}`);
   }
 }

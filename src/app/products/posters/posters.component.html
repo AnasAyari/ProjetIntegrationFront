@@ -1,6 +1,7 @@
+
 <div class="mb-12 grid gap-x-24 lg:grid-cols-3 w-11/12">
   <app-card
-    *ngFor="let poster of posters"
+    *ngFor="let poster of filteredPosters"
     [album]="poster.album"
     [artist]="poster.artist"
     [url]="poster.posterFile"
